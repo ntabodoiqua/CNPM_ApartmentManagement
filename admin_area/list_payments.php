@@ -4,6 +4,7 @@
         <tr class="text-center">
             <th>STT</th>
             <th>Tên hộ khẩu</th>
+            <th>Số phòng</th>
             <th>Tên khoản thu</th>
             <th>Loại khoản thu</th>
             <th>Đơn giá</th>
@@ -31,26 +32,41 @@
                 $apartment_id=$row_data['apartment_id'];
                 $amount_due=$row_data['amount_due'];
                 $amount_paid=$row_data['amount_paid'];
+                // Lấy tên khoản thu từ bảng `fees` dựa trên `fee_id`
+                $query_fees = "SELECT fee_name,fee_due_date FROM fees WHERE fee_id = $fee_id LIMIT 1";
+                $result_fees = mysqli_query($con, $query_fees);
+                $row_fees = mysqli_fetch_assoc($result_fees);
+                $fee_name = $row_fees['fee_name'];
+                $fee_due_date = $row_fees['fee_due_date'];
                 if ($amount_paid!=0){
                     $payment_date=$row_data['payment_date'];
                 } else {
                     $payment_date="Không có";
                 }
                 
-                $status=$row_data['status'];
+                if ($amount_paid == $amount_due) {
+                    $status = "Đã thanh toán";
+                    $status_class = "green"; // Biểu tượng hoặc màu xanh khi đã thanh toán
+                } else if (strtotime($fee_due_date) < strtotime(date('Y-m-d'))) {
+                    $status = "Quá hạn";
+                    $status_class = "red"; // Biểu tượng hoặc màu đỏ khi quá hạn
+                } else if ($amount_paid == 0){
+                    $status = "Chưa thanh toán";
+                    $status_class = "red"; // Biểu tượng hoặc màu đỏ khi chưa thanh toán
+                } else {
+                    $status = "Thanh toán một phần";
+                    $status_class = "yellow"; // Biểu tượng hoặc màu vàng cho thanh toán một phần
+                }
                 $number++;
 
                 // Lấy tên hộ khẩu từ bảng `residents` dựa trên `apartment_id`
-                $query_apartment = "SELECT apartment_name FROM apartments WHERE apartment_id = $apartment_id LIMIT 1";
+                $query_apartment = "SELECT apartment_name, apartment_num FROM apartments WHERE apartment_id = $apartment_id LIMIT 1";
                 $result_apartment = mysqli_query($con, $query_apartment);
                 $row_apartment = mysqli_fetch_assoc($result_apartment);
                 $apartment_name = $row_apartment['apartment_name'];
+                $apartment_num = $row_apartment['apartment_num'];
 
-                // Lấy tên khoản thu từ bảng `fees` dựa trên `fee_id`
-                $query_fees = "SELECT fee_name FROM fees WHERE fee_id = $fee_id LIMIT 1";
-                $result_fees = mysqli_query($con, $query_fees);
-                $row_fees = mysqli_fetch_assoc($result_fees);
-                $fee_name = $row_fees['fee_name'];
+                
 
                 // Lấy loại khoản thu từ bảng `type_fee` dựa trên `fee_id`
                 $query_type_fee = "SELECT type_name FROM type_fee WHERE type_id = (SELECT type_id FROM fees WHERE fee_id = $fee_id) LIMIT 1";
@@ -61,13 +77,22 @@
         <tr class="text-center">
             <td><?php echo $number; ?></td>
             <td><?php echo $apartment_name; ?></td>
+            <td><?php echo $apartment_num; ?></td>
             <td><?php echo $fee_name; ?></td>
             <td><?php echo $type_name; ?></td>
             <td><?php echo number_format($amount_due,0,',','.'); ?></td>
             <td><?php echo number_format($amount_paid,0,',','.'); ?></td>
             <td><?php echo $payment_date; ?></td>
-            <td><?php echo $status; ?></td>
-            <td><a href="index.php?edit_payment=<?php echo $payment_id ?>" class="btn btn-sm btn-warning"><i class="fa-solid fa-pen-to-square"></i> Thanh toán</a></td>
+            <td class="<?php echo $status_class; ?>"><?php echo $status; ?></td>
+            <?php if ($status == "Quá hạn"){
+                echo "<td>Không thể thanh toán</td>";
+            } else if ($status == "Đã thanh toán") {
+                echo "<td>Đã thanh toán</td>";
+            }
+            else {
+                echo "<td><a href='index.php?edit_payment=$payment_id' class='btn btn-sm btn-warning'><i class='fa-solid fa-pen-to-square'></i> Thanh toán</a></td>";
+            }
+            ?>
         </tr>
         <?php
             }

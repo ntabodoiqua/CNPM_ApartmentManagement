@@ -156,11 +156,16 @@ referrerpolicy="no-referrer" />
     if(isset($_GET['list_payments'])) {
         include('list_payments.php');
     }
-    if(isset($_GET['statistic_payments'])) {
+    if (isset($_GET['statistic_payments'])) {
+        // Lấy các tham số search và month_filter (nếu có)
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+        $month_filter = isset($_GET['month_filter']) ? $_GET['month_filter'] : '';
+        $year_filter = isset($_GET['year_filter']) ? $_GET['year_filter'] : '';
+        // Bao gồm file statistic_payments.php
         include('statistic_payments.php');
     }
-    if(isset($_GET['list_users'])) {
-        include('list_users.php');
+    if(isset($_GET['insert_users'])) {
+        include('insert_users.php');
     }
     if(isset($_GET['list_users'])) {
         include('list_users.php');

@@ -582,7 +582,6 @@
   }
   
   
-  <style>
   #productCarousel {
     max-width: 600px; /* Giới hạn chiều rộng của slider */
     margin: 0 auto;   /* Căn giữa slider */
@@ -598,4 +597,41 @@
     object-fit: cover;
     border-radius: 5px; /* Bo góc ảnh cho đẹp hơn */
   }
-</style>
+
+  /* Các lớp CSS cho màu sắc trạng thái */
+.green {
+  color: green;
+  font-weight: bold;
+}
+
+.red {
+  color: red;
+  font-weight: bold;
+  /* Biểu tượng có thể thêm ở đây */
+}
+
+.yellow {
+  color: orange;
+  font-weight: bold;
+}
+
+/* Nếu muốn thêm biểu tượng, bạn có thể sử dụng Font Awesome hoặc các biểu tượng khác */
+.red::before {
+  content: "\2022"; /* Unicode cho dấu chấm đỏ */
+  color: red;
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.green::before {
+  content: "\2714"; /* Dấu check (✔) */
+  color: green;
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.yellow::before {
+  content: "\1F4B0"; /* Biểu tượng đồng tiền (💰) */
+  font-size: 20px;
+  margin-right: 5px;
+}

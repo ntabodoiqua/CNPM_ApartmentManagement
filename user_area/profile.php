@@ -40,19 +40,13 @@ referrerpolicy="no-referrer" />
           <a class="nav-link active" aria-current="page" href="../index.php">Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../display_all.php">Sản phẩm</a>
+          <a class="nav-link" href="../display_all.php">Các khoản phí</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="profile.php">Tài khoản của tôi</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../contact_us.php">Liên hệ chúng tôi</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?php cart_item();?></sup> Giỏ hàng </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../cart.php">Tổng cần thanh toán: <?php echo total_cart_price()?> VNĐ</a>
+          <a class="nav-link" href="../contact_us.php">Liên hệ ban quản trị</a>
         </li>
       </ul>
       <form class="d-flex" role="search" action="../search_product.php" method="get">
@@ -62,10 +56,7 @@ referrerpolicy="no-referrer" />
     </div>
   </div>
 </nav>
-<!-- call cart func -->
-<?php
-cart();
-?>
+
 <!-- second child -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <ul class="navbar-nav me-auto">
@@ -96,10 +87,10 @@ cart();
 <div class="container my-5 p-4 bg-light rounded shadow-sm">
  <div class="hero-minimalist">
     <h3 class="hero-minimalist-title">
-        <i class="fas fa-laptop"></i> Laptop Thế Anh
+    <i class="fas fa-building"></i> Chung cư BlueMoon
     </h3>
     <p class="hero-minimalist-subtitle">
-        <i class="fas fa-quote-left"></i> Define your style
+        <i class="fas fa-quote-left"></i> Đẳng cấp, tiện nghi và sang trọng
     </p>
 </div>
 
@@ -112,26 +103,22 @@ cart();
         </li>
         <?php
         $username=$_SESSION['username'];
-        $user_image="select * from `user_table` where username='$username'";
+        $user_image="select * from `user_table` 
+                    join residents on user_table.resident_id = residents.resident_id
+                    where user_username='$username'";
         $result_image=mysqli_query($con,$user_image);
         $row_image=mysqli_fetch_array($result_image);
-        $user_image=$row_image['user_image'];
+        $user_image=$row_image['resident_image'];
         echo "<li class='image_container'>
-          <img src='./user_images/$user_image' class='profile_image my-4' alt='Profile'>
+          <img src='../admin_area/people_images/$user_image' class='profile_image my-4' alt='Profile'>
         </li>"
         ?>
         
         <li class="nav-item">
-          <a class="nav-link text-light" href="profile.php">Đơn hàng chờ thanh toán</a>
+          <a class="nav-link text-light" href="profile.php?account_info">Thông tin cá nhân</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-light" href="profile.php?edit_account">Chỉnh sửa thông tin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="profile.php?my_orders">Đơn hàng của tôi</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="profile.php?delete_account">Xóa tài khoản</a>
+          <a class="nav-link text-light" href="profile.php?edit_password">Đổi mật khẩu</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-light" href="user_logout.php">Đăng xuất</a>
@@ -139,15 +126,13 @@ cart();
         </ul>
   </div>
   <div class="col-md-10 text-center">
-    <?php get_user_order_details();
-    if (isset(($_GET['edit_account']))){
-      include('edit_account.php');
+    <?php 
+    
+    if (isset(($_GET['edit_password']))){
+      include('edit_password.php');
     }
-    if (isset(($_GET['my_orders']))){
-      include('user_orders.php');
-    }
-    if (isset(($_GET['delete_account']))){
-      include('delete_account.php');
+    if (isset(($_GET['account_info']))){
+      include('account_info.php');
     }
     ?>
   </div>
@@ -168,7 +153,7 @@ cart();
             <div class="col-md-4">
                 <h5>Liên hệ:</h5>
                 <p><strong>Điện thoại:</strong> <a href="tel:+84987654321" class="text-light">0987 654 321</a></p>
-                <p><strong>Email:</strong> <a href="mailto:contact@laptopstore.com" class="text-light">anhnta2004@gmail.com</a></p>
+                <p><strong>Email:</strong> <a href="mailto:contact@laptopstore.com" class="text-light">BlueMoon@gmail.com</a></p>
             </div>
 
             <!-- Liên kết đến các mạng xã hội -->
@@ -185,7 +170,7 @@ cart();
         
         <!-- Dòng chữ "All Rights Reserved" -->
         <div class="text-center mt-3">
-            <p>&copy;2024 Laptop NTA. All Rights Reserved.</p>
+            <p>&copy;2024 BlueMoon. All Rights Reserved.</p>
         </div>
     </div>
 </div>

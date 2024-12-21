@@ -109,27 +109,74 @@ if (isset($_POST['insert_fee'])) {
                 group by apartment_id;
             ";
             $result_vehicles = mysqli_query($con, $query_vehicles);
+
+            $success_count = 0; // Biến đếm số căn hộ cập nhật thành công
+
             while($row_vehicles = mysqli_fetch_assoc($result_vehicles)){
                 $money = $type_rate * $row_vehicles['vehicle_count'];
                 $apartment_id = $row_vehicles['apartment_id'];
+                
                 // Cập nhật vào bảng `apartment_fees`
                 $insert_apartment_fee = "
                     INSERT INTO apartment_fees (apartment_id, fee_id, money) 
                     VALUES ($apartment_id, $fee_id, $money)
                 ";
                 $result_insert = mysqli_query($con, $insert_apartment_fee);
-        
+
                 if (!$result_insert) {
                     echo "<script>alert('Có lỗi xảy ra khi cập nhật phí gửi xe cho căn hộ ID: $apartment_id')</script>";
+                } else {
+                    echo "<script>console.log('Gửi xe được cập nhật thành công cho căn hộ ID: $apartment_id')</script>";
+                    $success_count++; // Tăng số lượng căn hộ thành công
+                }
+
+                // Cập nhật vào bảng `payments`
+                $insert_payment = "
+                    INSERT INTO payments (fee_id, apartment_id, amount_due, amount_paid, payment_date, status) 
+                    VALUES ($fee_id, $apartment_id, $money, 0, NULL, 'Chưa thanh toán')
+                ";
+                $result_payment = mysqli_query($con, $insert_payment);
+
+                if (!$result_payment) {
+                    echo "<script>alert('Có lỗi khi cập nhật thanh toán cho căn hộ ID: $apartment_id')</script>";
+                } else {
+                    echo "<script>console.log('Thanh toán được cập nhật thành công cho căn hộ ID: $apartment_id')</script>";
                 }
             }
-            echo "<script>alert('Đã thêm thành công khoản phí gửi xe!')</script>";
+
+            // Thông báo khi tất cả căn hộ đã được cập nhật thành công
+            if ($success_count > 0) {
+                echo "<script>alert('Cập nhật thành công cho $success_count căn hộ!')</script>";
+            }
         }
            
     } else {
         // Lấy danh sách các căn hộ
         $query_apartments = "SELECT apartment_id FROM apartments";
         $result_apartments = mysqli_query($con, $query_apartments);
+        // duyệt
+        while ($row_apartment = mysqli_fetch_assoc($result_apartments)){
+            $money = $additional_fee;
+            $apartment_id = $row_apartment['apartment_id'];
+            $insert_apartment_fee = "
+                INSERT INTO apartment_fees (apartment_id, fee_id, money)
+                VALUES ($apartment_id, $fee_id, $money)";
+            $result_insert = mysqli_query($con, $insert_apartment_fee);
+            if (!$result_insert){
+                echo "<script>alert('Có lỗi xảy ra khi cập nhật phí cho căn hộ ID: $apartment_id')</script>";
+            }
+            $insert_payment = "
+                    INSERT INTO payments (fee_id, apartment_id, amount_due, amount_paid, payment_date, status) 
+                    VALUES ($fee_id, $apartment_id, $money, 0, NULL, 'Chưa thanh toán')
+                ";
+                $result_payment = mysqli_query($con, $insert_payment);
+                if (!$result_payment) {
+                    echo "<script>alert('Có lỗi khi cập nhật thanh toán cho căn hộ ID: $apartment_id')</script>";
+                } else {
+                    echo "<script>console.log('Thanh toán được cập nhật thành công cho căn hộ ID: $apartment_id')</script>";
+                }
+        }
+        echo "<script>alert('Đã thêm thành công khoản phí!')</script>";
     }
 } 
 ?>

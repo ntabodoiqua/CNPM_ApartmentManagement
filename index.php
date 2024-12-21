@@ -78,16 +78,10 @@ referrerpolicy="no-referrer" />
         </li>
 
           <li class="nav-item">
-          <a class="nav-link" href="./user_area/profile.php">Tài khoản</a>
+          <a class="nav-link" href="./user_area/profile.php">Tài khoản của tôi</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="contact_us.php">Liên hệ ban quản trị</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?php cart_item();?></sup>Các khoản phí chờ thanh toán</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="cart.php">Tổng tiền chờ thanh toán: <?php echo total_cart_price()?> VNĐ</a>
         </li>
       </ul>
       <form class="d-flex" role="search" action="search_product.php" method="get">
@@ -97,10 +91,7 @@ referrerpolicy="no-referrer" />
     </div>
   </div>
 </nav>
-<!-- call cart func -->
-<?php
-cart();
-?>
+
 <!-- second child -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <ul class="navbar-nav me-auto">
@@ -142,18 +133,20 @@ cart();
     
     <!-- Cột Hình ảnh -->
     <div class="col-md-6 text-center">
-        <img src="./images/poster.jpg" alt="Giới thiệu Laptop Thế Anh" class="img-fluid img-intro">
+        <img src="./images/chungcu_trangchu.webp" alt="Giới thiệu Laptop Thế Anh" class="img-fluid img-intro">
     </div>
 </div>
 <div class="shop-video-container">
   <div><h5 class="text-center">Mời bạn xem video giới thiệu về chung cư</h5></div>
   <iframe
   class="shop-video"
-  src="https://www.youtube.com/embed/km3MVZ8HZeY?autoplay=1&mute=1&loop=1&playlist=km3MVZ8HZeY&modestbranding=1&showinfo=0&rel=0&controls=0"
+  src="https://www.youtube.com/embed/SG3HAnqT56w?si=bmBrkt5osk5Q2UOO&autoplay=1&mute=1&loop=1&modestbranding=1&controls=0&rel=0"
   frameborder="0"
   allow="autoplay; encrypted-media"
   allowfullscreen>
 </iframe>
+
+
 
 </div>
 
@@ -161,7 +154,7 @@ cart();
     <div class="carousel-inner">
         <!-- Slide 1 -->
         <div class="carousel-item active">
-            <img src="./images/slide1.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 1">
+            <img src="./images/slide1.jpeg" class="d-block w-100 rounded" alt="Mục nổi bật 1">
             <div class="carousel-caption d-none d-md-block">
             </div>
         </div>
@@ -174,30 +167,6 @@ cart();
         <!-- Slide 3 -->
         <div class="carousel-item">
             <img src="./images/slide3.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 4 -->
-        <div class="carousel-item">
-            <img src="./images/slide4.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 5 -->
-        <div class="carousel-item">
-            <img src="./images/slide5.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 6 -->
-        <div class="carousel-item">
-            <img src="./images/slide6.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 7 -->
-        <div class="carousel-item">
-            <img src="./images/slide7.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
             <div class="carousel-caption d-none d-md-block">
             </div>
         </div>
@@ -222,12 +191,11 @@ cart();
   <div class="col-md-10">
         <!-- products -->
         <div class="row">
-        <h5 class="featured-products-title">Các khoản thu gần tới hạn</h5>
+        <h5 class="featured-products-title">Các khoản thu</h5>
 <!-- fetch products -->
  <?php
-getproducts();
-get_chosen_categories();
-get_chosen_brands();
+get_all_fees();
+get_chosen_fees();
 
  ?>
             
@@ -241,7 +209,7 @@ get_chosen_brands();
     <div class="sidebar-section-brands">
         <h5 class="section-title text-center">Loại khoản thu</h5>
         <ul class="sidebar-list text-center">
-            <?php getbrands(); ?>
+            <?php get_fee_types(); ?>
         </ul>
     </div>
 </div>
@@ -336,7 +304,7 @@ get_chosen_brands();
 <div class="row mb-5">
     <div class="col-12 text-center">
         <h2 class="commitment-title">Những cam kết của chúng tôi</h2>
-        <p class="commitment-description">Chúng tôi cam kết mang đến cho bạn trải nghiệm mua sắm tuyệt vời và sản phẩm chất lượng cao nhất.</p>
+        <p class="commitment-description">Chúng tôi cam kết mang đến cho bạn trải nghiệm sống tuyệt vời và đẳng cấp nhất.</p>
     </div>
 </div>
 
@@ -344,30 +312,31 @@ get_chosen_brands();
     <!-- Cam kết 1 -->
     <div class="col-md-4 text-center mb-4">
         <div class="commitment-box">
-            <i class="fas fa-laptop fa-3x commitment-icon"></i>
-            <h4 class="commitment-heading">Sản phẩm chính hãng</h4>
-            <p class="commitment-text">Chúng tôi cung cấp các sản phẩm chính hãng từ các thương hiệu hàng đầu, bảo đảm chất lượng và độ bền vượt trội.</p>
+            <i class="fas fa-shield-alt fa-3x commitment-icon"></i> <!-- Đổi thành biểu tượng bảo vệ -->
+            <h4 class="commitment-heading">An toàn tuyệt đối</h4>
+            <p class="commitment-text">Chung cư BlueMoon cam kết mang đến môi trường sống an toàn với hệ thống bảo vệ và giám sát hiện đại, đảm bảo sự yên tâm cho cư dân.</p>
         </div>
     </div>
 
     <!-- Cam kết 2 -->
     <div class="col-md-4 text-center mb-4">
         <div class="commitment-box">
-            <i class="fas fa-headset fa-3x commitment-icon"></i>
-            <h4 class="commitment-heading">Hỗ trợ khách hàng 24/7</h4>
-            <p class="commitment-text">Chúng tôi luôn sẵn sàng hỗ trợ bạn mọi lúc, đảm bảo giúp bạn giải quyết mọi vấn đề nhanh chóng và hiệu quả.</p>
+            <i class="fas fa-headphones-alt fa-3x commitment-icon"></i> <!-- Đổi thành biểu tượng tai nghe hỗ trợ -->
+            <h4 class="commitment-heading">Hỗ trợ cư dân 24/7</h4>
+            <p class="commitment-text">Chung cư BlueMoon luôn sẵn sàng hỗ trợ cư dân mọi lúc, từ việc giải quyết yêu cầu đến các vấn đề khẩn cấp, với đội ngũ nhân viên chuyên nghiệp và nhiệt tình.</p>
         </div>
     </div>
 
     <!-- Cam kết 3 -->
     <div class="col-md-4 text-center mb-4">
         <div class="commitment-box">
-            <i class="fas fa-truck fa-3x commitment-icon"></i>
-            <h4 class="commitment-heading">Giao hàng nhanh chóng</h4>
-            <p class="commitment-text">Chúng tôi cam kết giao hàng nhanh chóng, an toàn, và đúng thời gian, giúp bạn có trải nghiệm mua sắm dễ dàng hơn bao giờ hết.</p>
+            <i class="fas fa-clipboard-list fa-3x commitment-icon"></i> <!-- Đổi thành biểu tượng danh sách chi phí -->
+            <h4 class="commitment-heading">Minh bạch chi phí</h4>
+            <p class="commitment-text">Chung cư BlueMoon cam kết cung cấp thông tin chi tiết và rõ ràng về chi phí, giúp cư dân dễ dàng theo dõi và kiểm soát tài chính của mình.</p>
         </div>
     </div>
 </div>
+
 
 
 
@@ -388,7 +357,7 @@ get_chosen_brands();
             <div class="col-md-4">
                 <h5>Liên hệ:</h5>
                 <p><strong>Điện thoại:</strong> <a href="tel:+84987654321" class="text-light">0987 654 321</a></p>
-                <p><strong>Email:</strong> <a href="mailto:contact@laptopstore.com" class="text-light">anhnta2004@gmail.com</a></p>
+                <p><strong>Email:</strong> <a href="mailto:contact@laptopstore.com" class="text-light">BlueMoon@gmail.com</a></p>
             </div>
 
             <!-- Liên kết đến các mạng xã hội -->
@@ -405,7 +374,7 @@ get_chosen_brands();
         
         <!-- Dòng chữ "All Rights Reserved" -->
         <div class="text-center mt-3">
-            <p>&copy;2024 Laptop NTA. All Rights Reserved.</p>
+            <p>&copy;2024 BlueMoon. All Rights Reserved.</p>
         </div>
     </div>
 </div>

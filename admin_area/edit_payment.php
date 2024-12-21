@@ -33,11 +33,12 @@ if(isset($_POST['edit_payment'])){
     $payment_amount=$_POST['payment_amount'];
     $update_query="update `payments` set amount_paid = amount_paid + $payment_amount, status='Thanh toán 1 phần'
                     where payment_id=$edit_payment";
+    $result=mysqli_query($con, $update_query);
     if($amount_paid+$payment_amount==$amount_due){
         $update_query_2="update `payments` set status='Đã thanh toán'
                     where payment_id=$edit_payment";
+        $result2=mysqli_query($con, $update_query_2);
     }
-    $result=mysqli_query($con, $update_query);
     if($result){
         echo "<script>alert('Thanh toán được cập nhật thành công!')</script>";
         echo "<script>window.open('./index.php?list_payments','_self')</script>";

@@ -53,12 +53,6 @@ referrerpolicy="no-referrer" />
         <li class="nav-item">
           <a class="nav-link" href="contact_us.php">Liên hệ ban quản trị</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?php cart_item();?></sup>Các khoản phí chờ thanh toán</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="cart.php">Tổng tiền chờ thanh toán: <?php echo total_cart_price()?> VNĐ</a>
-        </li>
       </ul>
       <form class="d-flex" role="search" action="search_product.php" method="get">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data">
@@ -68,10 +62,7 @@ referrerpolicy="no-referrer" />
   </div>
 </nav>
 
-<!-- call cart func -->
-<?php
-cart();
-?>
+
 
 <!-- second child -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -108,18 +99,18 @@ cart();
  <div class="container my-5 p-4 bg-light rounded shadow-sm">
  <div class="hero-minimalist">
     <h3 class="hero-minimalist-title">
-        <i class="fas fa-laptop"></i> Chung cư BlueMoon
+        <i class="fas fa-building"></i> Chung cư BlueMoon
     </h3>
     <p class="hero-minimalist-subtitle">
-        <i class="fas fa-quote-left"></i>Tiện nghi và đẳng cấp
+        <i class="fas fa-quote-left"></i>Đẳng cấp, tiện nghi và sang trọng
     </p>
 </div>
 
-    <div id="highlightCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+<div id="highlightCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-inner">
         <!-- Slide 1 -->
         <div class="carousel-item active">
-            <img src="./images/slide1.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 1">
+            <img src="./images/slide1.jpeg" class="d-block w-100 rounded" alt="Mục nổi bật 1">
             <div class="carousel-caption d-none d-md-block">
             </div>
         </div>
@@ -132,30 +123,6 @@ cart();
         <!-- Slide 3 -->
         <div class="carousel-item">
             <img src="./images/slide3.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 4 -->
-        <div class="carousel-item">
-            <img src="./images/slide4.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 5 -->
-        <div class="carousel-item">
-            <img src="./images/slide5.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 6 -->
-        <div class="carousel-item">
-            <img src="./images/slide6.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 7 -->
-        <div class="carousel-item">
-            <img src="./images/slide7.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
             <div class="carousel-caption d-none d-md-block">
             </div>
         </div>
@@ -180,9 +147,8 @@ cart();
 <!-- fetch products -->
  <?php
 
-get_all_products();
-get_chosen_categories();
-get_chosen_brands();
+get_all_fees();
+get_chosen_fees();
  ?>
             
 <!-- row end -->
@@ -195,7 +161,7 @@ get_chosen_brands();
     <div class="sidebar-section-brands">
         <h5 class="section-title text-center">Loại khoản thu</h5>
         <ul class="sidebar-list text-center">
-            <?php getbrands(); ?>
+            <?php get_fee_types(); ?>
         </ul>
     </div>
 </div>
