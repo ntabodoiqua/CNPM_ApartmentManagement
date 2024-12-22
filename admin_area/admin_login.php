@@ -49,7 +49,6 @@ referrerpolicy="no-referrer" />
             <div>
                 <input type="submit" class="bg-success text-light py-2 px-3 border-0"
                 name="admin_login" value="Đăng nhập">
-                <p class="small fw-bold mt-2 pt-1">Chưa có tài khoản Admin? <a href="admin_registration.php" class="link-danger">Đăng ký</a></p>
             </div>
         </form>
     </div>

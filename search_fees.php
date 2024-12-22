@@ -3,14 +3,13 @@
 include('includes/connect.php');
 include('functions/common_functions.php');
 session_start();
-
 ?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tìm kiếm</title>
+    <title>Tất cả khoản thu</title>
 <!-- bootstrap CSS link -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
 rel="stylesheet" 
@@ -24,6 +23,10 @@ referrerpolicy="no-referrer" />
 
 <!-- css file -->
  <link rel="stylesheet" href="style.css">
+
+
+
+
 </head>
 <body>
     <!-- navbar -->
@@ -41,43 +44,32 @@ referrerpolicy="no-referrer" />
           <a class="nav-link active" aria-current="page" href="index.php">Trang chủ</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="display_all.php">Sản phẩm</a>
+          <a class="nav-link" href="display_all.php">Các khoản phí</a>
         </li>
+        
         <?php
-        if(!isset($_SESSION['username'])){
-          echo
-        "<li class='nav-item'>
-        <a class='nav-link' href='./user_area/user_registration.php'>Đăng ký</a>
-        </li>";
-        } else {
-          echo
-          "<li class='nav-item'>
-          <a class='nav-link' href='./user_area/profile.php'>Tài khoản của tôi</a>
-        </li>";
-        }
-        ?>
+    // Chỉ hiển thị mục "Tài khoản của tôi" nếu đã đăng nhập
+    if (isset($_SESSION['username'])) {
+    ?>
+    <li class="nav-item">
+        <a class="nav-link" href="./user_area/profile.php">Tài khoản của tôi</a>
+    </li>
+    <?php
+    }
+    ?>
         <li class="nav-item">
-          <a class="nav-link" href="contact_us.php">Liên hệ chúng tôi</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="cart.php"><i class="fa-solid fa-cart-shopping"></i><sup><?php cart_item();?></sup> Giỏ hàng </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="cart.php">Tổng tiền trong giỏ: <?php echo total_cart_price()?> VNĐ</a>
+          <a class="nav-link" href="contact_us.php">Liên hệ ban quản trị</a>
         </li>
       </ul>
-      <form class="d-flex" role="search" action="" method="get">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data">
-         <input type="submit" value="Tìm kiếm" class="btn btn-outline" name="search_data_product">
+      <form class="d-flex" role="search" action="search_fees.php" method="get">
+        <input class="form-control me-2" type="search" placeholder="Tìm kiếm khoản phí" aria-label="Search" name="search_data">
+         <input type="submit" value="Tìm kiếm" class="btn btn-success" name="search_data_product">
       </form>
     </div>
   </div>
 </nav>
 
-<!-- call cart func -->
-<?php
-cart();
-?>
+
 
 <!-- second child -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -106,21 +98,26 @@ cart();
 </nav>
 
 <!-- third child -->
-<div class="container my-5 p-4 bg-light rounded shadow-sm">
+
+
+
+
+
+ <div class="container my-5 p-4 bg-light rounded shadow-sm">
  <div class="hero-minimalist">
     <h3 class="hero-minimalist-title">
-        <i class="fas fa-laptop"></i> Laptop Thế Anh
+        <i class="fas fa-building"></i> Chung cư BlueMoon
     </h3>
     <p class="hero-minimalist-subtitle">
-        <i class="fas fa-quote-left"></i> Define your style
+        <i class="fas fa-quote-left"></i>Đẳng cấp, tiện nghi và sang trọng
     </p>
 </div>
 
-    <div id="highlightCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+<div id="highlightCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-inner">
         <!-- Slide 1 -->
         <div class="carousel-item active">
-            <img src="./images/slide1.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 1">
+            <img src="./images/slide1.jpeg" class="d-block w-100 rounded" alt="Mục nổi bật 1">
             <div class="carousel-caption d-none d-md-block">
             </div>
         </div>
@@ -133,30 +130,6 @@ cart();
         <!-- Slide 3 -->
         <div class="carousel-item">
             <img src="./images/slide3.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 4 -->
-        <div class="carousel-item">
-            <img src="./images/slide4.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 5 -->
-        <div class="carousel-item">
-            <img src="./images/slide5.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 6 -->
-        <div class="carousel-item">
-            <img src="./images/slide6.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 7 -->
-        <div class="carousel-item">
-            <img src="./images/slide7.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
             <div class="carousel-caption d-none d-md-block">
             </div>
         </div>
@@ -173,7 +146,6 @@ cart();
 </div>
       </div>
 
-
  <!-- fourth child -->
   <div class="row">
   <div class="col-md-10">
@@ -181,9 +153,10 @@ cart();
         <div class="row">
 <!-- fetch products -->
  <?php
-search_products();
-get_chosen_categories();
-get_chosen_brands();
+
+search_fees();
+get_chosen_fee_type();
+
  ?>
             
 <!-- row end -->
@@ -194,16 +167,17 @@ get_chosen_brands();
 <div class="col-md-2 apple-style-sidebar">
     <!-- brands to be displayed -->
     <div class="sidebar-section-brands">
-        <h5 class="section-title text-center">Hãng sản xuất</h5>
+        <h5 class="section-title text-center">Loại khoản thu</h5>
         <ul class="sidebar-list text-center">
-            <?php getbrands(); ?>
+            <?php get_fee_types(); ?>
         </ul>
     </div>
 </div>
-    
-  </div>
-<!-- last child -->
+
+
      </div>
+
+
      <div class="footer bg-dark text-light py-4 mt-5">
     <div class="container">
         <div class="row">
@@ -217,7 +191,7 @@ get_chosen_brands();
             <div class="col-md-4">
                 <h5>Liên hệ:</h5>
                 <p><strong>Điện thoại:</strong> <a href="tel:+84987654321" class="text-light">0987 654 321</a></p>
-                <p><strong>Email:</strong> <a href="mailto:contact@laptopstore.com" class="text-light">anhnta2004@gmail.com</a></p>
+                <p><strong>Email:</strong> <a href="mailto:contact@laptopstore.com" class="text-light">BlueMoon@gmail.com</a></p>
             </div>
 
             <!-- Liên kết đến các mạng xã hội -->
@@ -234,7 +208,7 @@ get_chosen_brands();
         
         <!-- Dòng chữ "All Rights Reserved" -->
         <div class="text-center mt-3">
-            <p>&copy;2024 Laptop NTA. All Rights Reserved.</p>
+            <p>&copy;2024 BlueMoon. All Rights Reserved.</p>
         </div>
     </div>
 </div>
@@ -245,9 +219,7 @@ get_chosen_brands();
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
 crossorigin="anonymous"></script>
-<!-- bootstrap js link -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-crossorigin="anonymous"></script>
+
+
 </body>
 </html>

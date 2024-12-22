@@ -69,27 +69,100 @@ referrerpolicy="no-referrer" />
 
         <!-- Navigation Buttons -->
         <div class="button text-center">
-            <div class="d-flex flex-wrap gap-2">
-                <a href="index.php?insert_people" class="btn btn-info text-light px-4 py-2">Thêm nhân khẩu</a>
-                <a href="index.php?view_people" class="btn btn-info text-light px-4 py-2">Xem nhân khẩu</a>
-                <a href="index.php?insert_apartments" class="btn btn-info text-light px-4 py-2">Thêm hộ khẩu</a>
-                <a href="index.php?view_apartments" class="btn btn-info text-light px-4 py-2">Xem hộ khẩu</a>
-                <a href="index.php?insert_tamtru" class="btn btn-info text-light px-4 py-2">Thêm tạm trú</a>
-                <a href="index.php?insert_tamvang" class="btn btn-info text-light px-4 py-2">Thêm tạm vắng</a>
-                <a href="index.php?view_tamtru" class="btn btn-info text-light px-4 py-2">Danh sách tạm trú</a>
-                <a href="index.php?view_tamvang" class="btn btn-info text-light px-4 py-2">Danh sách tạm vắng</a>
-                <a href="index.php?insert_vehicles" class="btn btn-info text-light px-4 py-2">Thêm phương tiện</a>
-                <a href="index.php?view_vehicles" class="btn btn-info text-light px-4 py-2">Danh sách phương tiện</a>
-                <a href="index.php?view_fee_type" class="btn btn-info text-light px-4 py-2">Xem loại phí</a>
-                <a href="index.php?insert_fees" class="btn btn-info text-light px-4 py-2">Thêm phí thu</a>
-                <a href="index.php?view_fees" class="btn btn-info text-light px-4 py-2">Xem phí thu</a>
-                <a href="index.php?list_payments" class="btn btn-info text-light px-4 py-2">Quản lý thu phí</a>
-                <a href="index.php?statistic_payments" class="btn btn-info text-light px-4 py-2">Thống kê thu phí</a>
-                <a href="index.php?insert_users" class="btn btn-info text-light px-4 py-2">Thêm người dùng</a>
-                <a href="index.php?list_users" class="btn btn-info text-light px-4 py-2">Danh sách người dùng</a>
-                <a href="index.php?log_out" class="btn btn-danger text-light px-4 py-2">Đăng xuất</a>
-            </div>
+    <div class="d-flex flex-wrap gap-2">
+        <!-- People Management -->
+        <div class="dropdown">
+            <button class="btn btn-info text-light px-4 py-2 dropdown-toggle" type="button" id="peopleMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                Quản lý nhân khẩu
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="peopleMenu">
+                <li><a class="dropdown-item" href="index.php?insert_people">Thêm nhân khẩu</a></li>
+                <li><a class="dropdown-item" href="index.php?view_people">Xem nhân khẩu</a></li>
+            </ul>
         </div>
+
+        <!-- Apartment Management -->
+        <div class="dropdown">
+            <button class="btn btn-info text-light px-4 py-2 dropdown-toggle" type="button" id="apartmentMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                Quản lý hộ khẩu
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="apartmentMenu">
+                <li><a class="dropdown-item" href="index.php?insert_apartments">Thêm hộ khẩu</a></li>
+                <li><a class="dropdown-item" href="index.php?view_apartments">Xem hộ khẩu</a></li>
+            </ul>
+        </div>
+
+        <!-- Temporary Residence -->
+        <div class="dropdown">
+            <button class="btn btn-info text-light px-4 py-2 dropdown-toggle" type="button" id="tamtruMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                Quản lý tạm trú
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="tamtruMenu">
+                <li><a class="dropdown-item" href="index.php?insert_tamtru">Thêm tạm trú</a></li>
+                <li><a class="dropdown-item" href="index.php?view_tamtru">Danh sách tạm trú</a></li>
+            </ul>
+        </div>
+
+        <!-- Temporary Absence -->
+        <div class="dropdown">
+            <button class="btn btn-info text-light px-4 py-2 dropdown-toggle" type="button" id="tamvangMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                Quản lý tạm vắng
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="tamvangMenu">
+                <li><a class="dropdown-item" href="index.php?insert_tamvang">Thêm tạm vắng</a></li>
+                <li><a class="dropdown-item" href="index.php?view_tamvang">Danh sách tạm vắng</a></li>
+            </ul>
+        </div>
+
+        <!-- Vehicle Management -->
+        <div class="dropdown">
+            <button class="btn btn-info text-light px-4 py-2 dropdown-toggle" type="button" id="vehicleMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                Quản lý phương tiện
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="vehicleMenu">
+                <li><a class="dropdown-item" href="index.php?insert_vehicles">Thêm phương tiện</a></li>
+                <li><a class="dropdown-item" href="index.php?view_vehicles">Danh sách phương tiện</a></li>
+            </ul>
+        </div>
+
+        <!-- Fee Management -->
+        <div class="dropdown">
+            <button class="btn btn-info text-light px-4 py-2 dropdown-toggle" type="button" id="feeMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                Quản lý phí
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="feeMenu">
+                <li><a class="dropdown-item" href="index.php?view_fee_type">Xem loại phí</a></li>
+                <li><a class="dropdown-item" href="index.php?insert_fees">Thêm phí thu</a></li>
+                <li><a class="dropdown-item" href="index.php?view_fees">Xem phí thu</a></li>
+                <li><a class="dropdown-item" href="index.php?list_payments">Quản lý thu phí</a></li>
+                <li><a class="dropdown-item" href="index.php?statistic_payments">Thống kê thu phí</a></li>
+            </ul>
+        </div>
+
+        <!-- User Management -->
+        <div class="dropdown">
+            <button class="btn btn-info text-light px-4 py-2 dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                Quản lý người dùng
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="userMenu">
+                <li><a class="dropdown-item" href="index.php?insert_users">Thêm người dùng</a></li>
+                <li><a class="dropdown-item" href="index.php?list_users">Danh sách người dùng</a></li>
+                <li><a class="dropdown-item" href="index.php?edit_password">Đổi mật khẩu QTV</a></li>
+            </ul>
+        </div>
+
+        <!-- Logout -->
+        <div class="dropdown">
+            <button class="btn btn-danger text-light px-4 py-2 dropdown-toggle" type="button" id="logoutMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                Đăng xuất
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="logoutMenu">
+                <li><a class="dropdown-item" href="index.php?log_out">Đăng xuất</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
     </div>
 </div>
 
@@ -176,15 +249,52 @@ referrerpolicy="no-referrer" />
     if(isset($_GET['log_out'])) {
         include('admin_logout.php');
     }
+    if(isset($_GET['delete_user'])) {
+        include('delete_user.php');
+    }
+    if(isset($_GET['edit_password'])) {
+        include('edit_password.php');
+    }
     ?>
 </div>
 
 
 
      <!-- last child -->
-     <?php
-        include("../includes/footer.php");
-        ?>
+     <div class="footer bg-dark text-light py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <!-- Địa chỉ quán Laptop -->
+            <div class="col-md-4">
+                <h5>Địa chỉ:</h5>
+                <p>123 Đường ABC, Quận XYZ, Thành phố Hà Nội</p>
+            </div>
+            
+            <!-- Số điện thoại và Email -->
+            <div class="col-md-4">
+                <h5>Liên hệ:</h5>
+                <p><strong>Điện thoại:</strong> <a href="tel:+84987654321" class="text-light">0987 654 321</a></p>
+                <p><strong>Email:</strong> <a href="mailto:contact@laptopstore.com" class="text-light">BlueMoon@gmail.com</a></p>
+            </div>
+
+            <!-- Liên kết đến các mạng xã hội -->
+            <div class="col-md-4 text-center">
+                <h5>Theo dõi chúng tôi:</h5>
+                <a href="https://www.facebook.com/ntabodoiqua2004" target="_blank" class="text-light mx-2">
+                    <i class="fab fa-facebook fa-2x"></i>
+                </a>
+                <a href="https://github.com/ntabodoiqua/Project1_EcomWebSite" target="_blank" class="text-light mx-2">
+                    <i class="fab fa-github fa-2x"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Dòng chữ "All Rights Reserved" -->
+        <div class="text-center mt-3">
+            <p>&copy;2024 BlueMoon. All Rights Reserved.</p>
+        </div>
+    </div>
+</div>
      </div>
 <!-- bootstrap js link -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 

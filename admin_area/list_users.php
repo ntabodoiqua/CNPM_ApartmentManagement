@@ -4,16 +4,18 @@
         <tr class="text-center">
             <th>STT</th>
             <th>Username</th>
-            <th>Email</th>
-            <th>Ảnh đại diện</th>
-            <th>Địa chỉ</th>
-            <th>Số điện thoại</th>
+            <th>Tên người dùng</th>
+            <th>Ảnh người dùng</th>
+            <th>Tên hộ khẩu</th>
+            <th>CCCD</th>
             <th>Xóa người dùng</th>
         </tr>
     </thead>
     <tbody class="bg-secondary text-light">
         <?php
-        $get_users="SELECT * FROM `user_table`";
+        $get_users="SELECT * FROM `user_table`
+                    join `residents` on user_table.resident_id = residents.resident_id
+                    join `apartments` on apartments.apartment_id = residents.apartment_id";
         $result=mysqli_query($con,$get_users);
         $row_count=mysqli_num_rows($result);
 
@@ -22,23 +24,23 @@
         } else {
             $number = 0;
             while($row_data=mysqli_fetch_assoc($result)){
-                $user_id=$row_data['user_id'];
-                $username=$row_data['username'];
-                $user_email=$row_data['user_email'];
-                $user_image=$row_data['user_image'];
-                $user_address=$row_data['user_address'];
-                $user_phone=$row_data['user_phone'];
+                $resident_id=$row_data['resident_id'];
+                $user_username=$row_data['user_username'];
+                $resident_name=$row_data['resident_name'];
+                $resident_image=$row_data['resident_image'];
+                $apartment_name=$row_data['apartment_name'];
+                $resident_phone=$row_data['resident_phone'];
                 $number++;
         echo "
         <tr class='text-center'>
             <td>$number</td>
-            <td>$username</td>
-            <td>$user_email</td>
-            <td><img src='../user_area/user_images/$user_image' alt='' class='admin_ava'></td>
-            <td>$user_address</td>
-            <td>$user_phone</td>
+            <td>$user_username</td>
+            <td>$resident_name</td>
+            <td><img src='./people_images/$resident_image' alt='' class='admin_ava'></td>
+            <td>$apartment_name</td>
+            <td>$resident_phone</td>
             <td>
-            <button class='btn btn-sm btn-danger delete-btn' data-id=$user_id>
+            <button class='btn btn-sm btn-danger delete-btn' data-id=$resident_id>
                     <i class='fa-solid fa-trash'></i> Xóa
                 </button>
             </td>
@@ -72,8 +74,8 @@
 <script>
     $(document).ready(function () {
         $('.delete-btn').on('click', function () {
-            var userId = $(this).data('id');
-            $('#confirmDeleteLink').attr('href', 'index.php?delete_user=' + userId);
+            var residentId = $(this).data('id');
+            $('#confirmDeleteLink').attr('href', 'index.php?delete_user=' + residentId);
             $('#deleteModal').modal('show');
         });
     });

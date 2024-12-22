@@ -77,16 +77,23 @@ referrerpolicy="no-referrer" />
           <a class="nav-link" href="display_all.php">Các khoản phí</a>
         </li>
 
-          <li class="nav-item">
-          <a class="nav-link" href="./user_area/profile.php">Tài khoản của tôi</a>
-        </li>
+        <?php
+    // Chỉ hiển thị mục "Tài khoản của tôi" nếu đã đăng nhập
+    if (isset($_SESSION['username'])) {
+    ?>
+    <li class="nav-item">
+        <a class="nav-link" href="./user_area/profile.php">Tài khoản của tôi</a>
+    </li>
+    <?php
+    }
+    ?>
         <li class="nav-item">
           <a class="nav-link" href="contact_us.php">Liên hệ ban quản trị</a>
         </li>
       </ul>
-      <form class="d-flex" role="search" action="search_product.php" method="get">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data">
-         <input type="submit" value="Tìm kiếm" class="btn btn-outline" name="search_data_product">
+      <form class="d-flex" role="search" action="search_fees.php" method="get">
+        <input class="form-control me-2" type="search" placeholder="Tìm kiếm khoản phí" aria-label="Search" name="search_data">
+         <input type="submit" value="Tìm kiếm" class="btn btn-success" name="search_data_product">
       </form>
     </div>
   </div>
@@ -124,7 +131,7 @@ referrerpolicy="no-referrer" />
     <div class="row mb-4">
     <!-- Cột Giới thiệu về Laptop Thế Anh -->
     <div class="col-md-6">
-        <h2 class="text-dark">Chào mừng đến với trang thu phí Blue Moon</h2>
+        <h2 class="text-dark">Chào mừng đến với trang thông tin thu phí chung cư Blue Moon</h2>
         <p class="lead">
         Chung cư BlueMoon, tọa lạc tại ngã tư Văn Phú, là biểu tượng hiện đại với 30 tầng, gồm kiot, nhà ở và penhouse, được hoàn thiện năm 2023. Với cơ sở vật chất đẳng cấp và quản lý chuyên nghiệp bởi Ban quản trị cư dân, BlueMoon mang đến không gian sống tiện nghi và bền vững.
         </p>
@@ -186,35 +193,53 @@ referrerpolicy="no-referrer" />
       
 
 
- <!-- fourth child -->
-  <div class="row">
-  <div class="col-md-10">
+      <?php
+// Kiểm tra nếu người dùng đã đăng nhập
+if (isset($_SESSION['username'])) {
+?>
+<!-- fourth child -->
+<div class="row">
+    <div class="col-md-10">
         <!-- products -->
         <div class="row">
-        <h5 class="featured-products-title">Các khoản thu</h5>
-<!-- fetch products -->
- <?php
-get_all_fees();
-get_chosen_fees();
-
- ?>
-            
-<!-- row end -->
-            
-  </div>
-<!-- column end -->
-</div>
-<div class="col-md-2 apple-style-sidebar">
-    <!-- type of fee -->
-    <div class="sidebar-section-brands">
-        <h5 class="section-title text-center">Loại khoản thu</h5>
-        <ul class="sidebar-list text-center">
-            <?php get_fee_types(); ?>
-        </ul>
+            <h5 class="featured-products-title">Các khoản thu</h5>
+            <!-- fetch products -->
+            <?php
+            get_index_fees();
+            get_chosen_fee_type();
+            search_fees();
+            ?>
+            <!-- row end -->
+        </div>
+        <!-- column end -->
+    </div>
+    <div class="col-md-2 apple-style-sidebar">
+        <!-- type of fee -->
+        <div class="sidebar-section-brands">
+            <h5 class="section-title text-center">Loại khoản thu</h5>
+            <ul class="sidebar-list text-center">
+                <?php get_fee_types(); ?>
+            </ul>
+        </div>
     </div>
 </div>
-    
+<?php
+} else {
+?>
+<!-- Thông báo chưa đăng nhập -->
+<div class="container text-center mt-5">
+    <div class="alert alert-warning" style="font-size: 1.2rem; max-width: 600px; margin: auto;">
+        <strong>Vui lòng đăng nhập!</strong> Bạn cần đăng nhập để xem các khoản thu.
+    </div>
+    <a href="./user_area/user_login.php" class="btn btn-primary mt-3" style="font-size: 1rem;">
+        Đăng nhập ngay
+    </a>
 </div>
+<?php
+}
+?>
+
+
 
 
 

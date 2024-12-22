@@ -49,9 +49,9 @@ referrerpolicy="no-referrer" />
           <a class="nav-link" href="../contact_us.php">Liên hệ ban quản trị</a>
         </li>
       </ul>
-      <form class="d-flex" role="search" action="../search_product.php" method="get">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data">
-         <input type="submit" value="Tìm kiếm" class="btn btn-outline" name="search_data_product">
+      <form class="d-flex" role="search" action="../search_fees.php" method="get">
+        <input class="form-control me-2" type="search" placeholder="Tìm kiếm khoản phi" aria-label="Search" name="search_data">
+         <input type="submit" value="Tìm kiếm" class="btn btn-success" name="search_data_product">
       </form>
     </div>
   </div>
@@ -72,11 +72,11 @@ referrerpolicy="no-referrer" />
         }
         if(!isset($_SESSION['username'])){
           echo "<li class='nav-item'>
-          <a class='nav-link text-white' href='./user_area/user_login.php'>Đăng nhập</a>
+          <a class='nav-link text-white' href='user_login.php'>Đăng nhập</a>
         </li>";
         } else {
           echo "<li class='nav-item'>
-          <a class='nav-link text-white' href='./user_area/user_logout.php'>Đăng xuất</a>
+          <a class='nav-link text-white' href='user_logout.php'>Đăng xuất</a>
         </li>";
         }
         ?>

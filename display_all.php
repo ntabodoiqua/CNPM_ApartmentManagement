@@ -47,16 +47,23 @@ referrerpolicy="no-referrer" />
           <a class="nav-link" href="display_all.php">Các khoản phí</a>
         </li>
         
-        <li class='nav-item'>
-          <a class='nav-link' href='./user_area/profile.php'>Tài khoản</a>
-        </li>
+        <?php
+    // Chỉ hiển thị mục "Tài khoản của tôi" nếu đã đăng nhập
+    if (isset($_SESSION['username'])) {
+    ?>
+    <li class="nav-item">
+        <a class="nav-link" href="./user_area/profile.php">Tài khoản của tôi</a>
+    </li>
+    <?php
+    }
+    ?>
         <li class="nav-item">
           <a class="nav-link" href="contact_us.php">Liên hệ ban quản trị</a>
         </li>
       </ul>
-      <form class="d-flex" role="search" action="search_product.php" method="get">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_data">
-         <input type="submit" value="Tìm kiếm" class="btn btn-outline" name="search_data_product">
+      <form class="d-flex" role="search" action="search_fees.php" method="get">
+        <input class="form-control me-2" type="search" placeholder="Tìm kiếm khoản phí" aria-label="Search" name="search_data">
+         <input type="submit" value="Tìm kiếm" class="btn btn-success" name="search_data_product">
       </form>
     </div>
   </div>
@@ -139,32 +146,51 @@ referrerpolicy="no-referrer" />
 </div>
       </div>
 
- <!-- fourth child -->
-  <div class="row">
-  <div class="col-md-10">
+      <?php
+// Kiểm tra nếu người dùng đã đăng nhập
+if (isset($_SESSION['username'])) {
+?>
+<!-- fourth child -->
+<div class="row">
+    <div class="col-md-10">
         <!-- products -->
         <div class="row">
-<!-- fetch products -->
- <?php
-
-get_all_fees();
-get_chosen_fees();
- ?>
-            
-<!-- row end -->
-            
-  </div>
-<!-- column end -->
-</div>
-<div class="col-md-2 apple-style-sidebar">
-    <!-- brands to be displayed -->
-    <div class="sidebar-section-brands">
-        <h5 class="section-title text-center">Loại khoản thu</h5>
-        <ul class="sidebar-list text-center">
-            <?php get_fee_types(); ?>
-        </ul>
+            <h5 class="featured-products-title">Các khoản thu</h5>
+            <!-- fetch products -->
+            <?php
+            get_all_fees();
+            get_chosen_fee_type();
+            search_fees();
+            ?>
+            <!-- row end -->
+        </div>
+        <!-- column end -->
+    </div>
+    <div class="col-md-2 apple-style-sidebar">
+        <!-- type of fee -->
+        <div class="sidebar-section-brands">
+            <h5 class="section-title text-center">Loại khoản thu</h5>
+            <ul class="sidebar-list text-center">
+                <?php get_fee_types(); ?>
+            </ul>
+        </div>
     </div>
 </div>
+<?php
+} else {
+?>
+<!-- Thông báo chưa đăng nhập -->
+<div class="container text-center mt-5">
+    <div class="alert alert-warning" style="font-size: 1.2rem; max-width: 600px; margin: auto;">
+        <strong>Vui lòng đăng nhập!</strong> Bạn cần đăng nhập để xem các khoản thu.
+    </div>
+    <a href="./user_area/user_login.php" class="btn btn-primary mt-3" style="font-size: 1rem;">
+        Đăng nhập ngay
+    </a>
+</div>
+<?php
+}
+?>
 
 
      </div>
@@ -183,7 +209,7 @@ get_chosen_fees();
             <div class="col-md-4">
                 <h5>Liên hệ:</h5>
                 <p><strong>Điện thoại:</strong> <a href="tel:+84987654321" class="text-light">0987 654 321</a></p>
-                <p><strong>Email:</strong> <a href="mailto:contact@laptopstore.com" class="text-light">anhnta2004@gmail.com</a></p>
+                <p><strong>Email:</strong> <a href="mailto:contact@laptopstore.com" class="text-light">BlueMoon@gmail.com</a></p>
             </div>
 
             <!-- Liên kết đến các mạng xã hội -->
@@ -200,7 +226,7 @@ get_chosen_fees();
         
         <!-- Dòng chữ "All Rights Reserved" -->
         <div class="text-center mt-3">
-            <p>&copy;2024 Laptop NTA. All Rights Reserved.</p>
+            <p>&copy;2024 BlueMoon. All Rights Reserved.</p>
         </div>
     </div>
 </div>
