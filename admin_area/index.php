@@ -255,6 +255,12 @@ referrerpolicy="no-referrer" />
     if(isset($_GET['edit_password'])) {
         include('edit_password.php');
     }
+    if(isset($_GET['edit_apartment'])) {
+        include('edit_apartment.php');
+    }
+    if(isset($_GET['edit_fee_type'])) {
+        include('edit_fee_type.php');
+    }
     ?>
 </div>
 

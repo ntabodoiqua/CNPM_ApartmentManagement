@@ -143,8 +143,6 @@ if(isset($_POST['insert_people'])){
                         <td>
                             <select name="resident_status" class="form-select" required>
                                 <option value="Đang sống">Đang sống</option>
-                                <option value="Tạm vắng">Tạm vắng</option>
-                                <option value="Không còn sinh sống">Không còn sinh sống</option>
                             </select>
                         </td>
                     </tr>

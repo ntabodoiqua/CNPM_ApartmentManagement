@@ -24,7 +24,7 @@
             <td><?php echo $type_name; ?></td>
             <td><?php echo $type_rate; ?></td>
             <td>
-                <a href='index.php?edit_brand=<?php echo $type_id?>' class="btn btn-sm btn-warning">
+                <a href='index.php?edit_fee_type=<?php echo $type_id?>' class="btn btn-sm btn-warning">
                     <i class="fa-solid fa-pen-to-square"></i> Sửa
                 </a>
             </td>
