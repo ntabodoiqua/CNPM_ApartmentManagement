@@ -11,7 +11,7 @@ if (isset($_POST['insert_resident_info'])) {
         echo "<script>alert('Vui lòng điền đầy đủ thông tin!')</script>";
     } else {
         // Truy vấn để lấy resident_id từ bảng residents theo cccd
-        $resident_query = "SELECT resident_id FROM residents WHERE resident_phone = '$cccd'";
+        $resident_query = "SELECT resident_id FROM residents WHERE resident_phone = '$cccd' and resident_status='Đang sống'";
         $resident_result = mysqli_query($con, $resident_query);
         
         if (mysqli_num_rows($resident_result) > 0) {

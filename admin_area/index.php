@@ -261,6 +261,9 @@ referrerpolicy="no-referrer" />
     if(isset($_GET['edit_fee_type'])) {
         include('edit_fee_type.php');
     }
+    if(isset($_GET['edit_resident'])) {
+        include('edit_resident.php');
+    }
     ?>
 </div>
 

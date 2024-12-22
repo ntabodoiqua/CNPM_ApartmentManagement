@@ -39,7 +39,7 @@ if (isset($_POST['insert_fee'])) {
     // Nếu `additional_fee` là 0 (phí bắt buộc), tính phí dịch vụ chung cư
     if ($additional_fee == 0) {
         // Lấy danh sách các căn hộ
-        $query_apartments = "SELECT apartment_id, apartment_area FROM apartments";
+        $query_apartments = "SELECT apartment_id, apartment_area FROM apartments WHERE NOT curr_living = 0";
         $result_apartments = mysqli_query($con, $query_apartments);
 
         // Lấy mức phí từ bảng `type_fee`
@@ -152,7 +152,7 @@ if (isset($_POST['insert_fee'])) {
            
     } else {
         // Lấy danh sách các căn hộ
-        $query_apartments = "SELECT apartment_id FROM apartments";
+        $query_apartments = "SELECT apartment_id, apartment_area FROM apartments WHERE NOT curr_living = 0";
         $result_apartments = mysqli_query($con, $query_apartments);
         // duyệt
         while ($row_apartment = mysqli_fetch_assoc($result_apartments)){

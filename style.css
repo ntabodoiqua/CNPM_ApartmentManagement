@@ -635,3 +635,15 @@
   font-size: 20px;
   margin-right: 5px;
 }
+.navbar-fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1030; /* Đảm bảo navbar nằm trên các phần tử khác */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm bóng để phân biệt navbar với nội dung */
+}
+
+/* Đảm bảo nội dung không bị che bởi navbar */
+body {
+  padding-top: 95px; /* Tùy chỉnh chiều cao padding bằng chiều cao navbar */
+}

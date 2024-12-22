@@ -29,7 +29,7 @@
         ?>
     </select>
 </form>
-
+<a href="export_payments.php" class="btn btn-success">Tải file Excel</a>
 </div>
 <table class="table table-bordered table-hover table-striped mt-3">
     <thead class="table-dark">
