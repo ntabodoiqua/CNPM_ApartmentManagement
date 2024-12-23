@@ -1,22 +1,23 @@
 <?php
 include('../includes/connect.php'); // Kết nối database
-if(isset($_POST['insert_people'])){
-    $resident_name=$_POST['resident_name'];
-    $dob=$_POST['dob'];
+if (isset($_POST['insert_people'])) {
+    $resident_name = $_POST['resident_name'];
     $dob = date('Y-m-d', strtotime($_POST['dob'])); // Định dạng lại ngày sinh
-    $resident_phone=$_POST['resident_phone'];
-    $resident_email=$_POST['resident_email'];
-    $resident_apartment=$_POST['resident_apartment'];
-    $resident_relation_owner=$_POST['resident_relation_owner'];
-    $resident_status=$_POST['resident_status'];
-    
+    $resident_phone = $_POST['resident_phone'];
+    $resident_email = $_POST['resident_email'];
+    $resident_apartment = $_POST['resident_apartment'];
+    $resident_relation_owner = $_POST['resident_relation_owner'];
+    $resident_status = $_POST['resident_status'];
+
     // Xử lý ảnh
-    $resident_image=$_FILES['resident_image']['name'];
-    $temp_image=$_FILES['resident_image']['tmp_name'];
-    
+    $resident_image = $_FILES['resident_image']['name'];
+    $temp_image = $_FILES['resident_image']['tmp_name'];
+
     // Kiểm tra các trường trống
-    if($resident_name =='' || $dob == '' || $resident_phone == '' || $resident_email == '' || 
-    $resident_apartment == '' || $resident_relation_owner == '' || $resident_image == '' || $resident_status == ''){
+    if (
+        $resident_name == '' || $dob == '' || $resident_phone == '' || $resident_email == '' || 
+        $resident_apartment == '' || $resident_relation_owner == '' || $resident_image == '' || $resident_status == ''
+    ) {
         echo "<script>alert('Hãy điền hết các ô trống!')</script>";
         exit();
     } else {
@@ -26,44 +27,60 @@ if(isset($_POST['insert_people'])){
         // Câu truy vấn thêm cư dân vào bảng `residents`
         $insert_people = "
         INSERT INTO `residents` (resident_name, resident_dob, resident_phone, resident_email, apartment_id, 
-                                 resident_relation_owner, resident_status, resident_image) 
+                                 resident_relation_owner, resident_status, resident_image, resident_ngayden) 
         VALUES ('$resident_name', '$dob', '$resident_phone', '$resident_email', '$resident_apartment', 
-                '$resident_relation_owner', '$resident_status', '$resident_image')
+                '$resident_relation_owner', '$resident_status', '$resident_image', NOW())
         ";
         $result_query = mysqli_query($con, $insert_people);
 
-        // Lấy `resident_id` của người dân vừa thêm vào
-        $resident_id = mysqli_insert_id($con);
-        
-        // Nếu người dân là "Chủ hộ", thực hiện thêm vào bảng `apartment_owner` và cập nhật `owner_id` trong bảng `apartments`
-        if($resident_relation_owner == "Chủ hộ") {
-            // Thêm vào bảng `apartment_owner`
+        // Nếu truy vấn thêm thành công
+        if ($result_query) {
+            // Tính toán số người đang sống
+            $cal_num_living = "
+            SELECT COUNT(*) as curr_living 
+            FROM `residents` 
+            WHERE apartment_id = $resident_apartment AND (resident_status = 'Tạm trú' OR resident_status = 'Đang sống')
+            ";
+            $result_cal = mysqli_query($con, $cal_num_living);
+            $data_cal = mysqli_fetch_assoc($result_cal);
+            $curr_living = $data_cal['curr_living'];
 
-            
-            // Cập nhật trường `owner_id` trong bảng `apartments`
+            // Cập nhật số người đang sống trong bảng `apartments`
             $update_apartment = "
             UPDATE `apartments` 
-            SET `owner_id` = '$resident_id' 
+            SET `curr_living` = '$curr_living' 
             WHERE `apartment_id` = '$resident_apartment'
             ";
             $result_update_apartment = mysqli_query($con, $update_apartment);
 
-            if ($result_update_apartment) {
-                echo "<script>alert('Đã thêm thành công người dân và cập nhật chủ hộ!')</script>";
-            } else {
-                echo "<script>alert('Lỗi khi cập nhật thông tin chủ hộ!')</script>";
-            }
-        } else {
-            echo "<script>alert('Đã thêm thành công người dân!')</script>";
-        }
+            // Nếu người dân là "Chủ hộ", cập nhật thông tin chủ hộ
+            if ($resident_relation_owner == "Chủ hộ") {
+                // Cập nhật trường `owner_id` trong bảng `apartments`
+                $update_apartment_owner = "
+                UPDATE `apartments` 
+                SET `owner_id` = (SELECT MAX(resident_id) FROM `residents` WHERE apartment_id = '$resident_apartment') 
+                WHERE `apartment_id` = '$resident_apartment'
+                ";
+                $result_update_apartment_owner = mysqli_query($con, $update_apartment_owner);
 
-        // Kiểm tra nếu truy vấn thêm thành công, chuyển hướng về trang danh sách
-        if($result_query){
-            echo "<script>window.open('index.php','_self')</script>";
+                if ($result_update_apartment_owner && $result_update_apartment) {
+                    echo "<script>alert('Đã thêm thành công người dân và cập nhật chủ hộ!')</script>";
+                } else {
+                    echo "<script>alert('Lỗi khi cập nhật thông tin chủ hộ!')</script>";
+                }
+            } else {
+                echo "<script>alert('Đã thêm thành công người dân!')</script>";
+            }
+
+            // Kiểm tra nếu truy vấn thêm thành công, chuyển hướng về trang danh sách
+            echo "<script>window.open('index.php', '_self')</script>";
+        } else {
+            echo "<script>alert('Lỗi khi thêm người dân!')</script>";
         }
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="vi">

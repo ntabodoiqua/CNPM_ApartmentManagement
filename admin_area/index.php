@@ -30,7 +30,7 @@ referrerpolicy="no-referrer" />
     <!-- navbar -->
      <div class="container-fluid p-0">
         <!-- first child -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-info">
+        <nav class="navbar navbar-expand-lg bg-info navbar-fixed">
             <div class="container-fluid">
                 <img src="../images/logo.png" alt="" class="logo">
                 <nav class="navbar navbar-expand-lg navbar-light bg-info">
@@ -78,6 +78,7 @@ referrerpolicy="no-referrer" />
             <ul class="dropdown-menu" aria-labelledby="peopleMenu">
                 <li><a class="dropdown-item" href="index.php?insert_people">Thêm nhân khẩu</a></li>
                 <li><a class="dropdown-item" href="index.php?view_people">Xem nhân khẩu</a></li>
+                <li><a class="dropdown-item" href="index.php?lichsu_nhankhau">Biến động nhân khẩu</a></li>
             </ul>
         </div>
 
@@ -89,6 +90,7 @@ referrerpolicy="no-referrer" />
             <ul class="dropdown-menu" aria-labelledby="apartmentMenu">
                 <li><a class="dropdown-item" href="index.php?insert_apartments">Thêm hộ khẩu</a></li>
                 <li><a class="dropdown-item" href="index.php?view_apartments">Xem hộ khẩu</a></li>
+                <li><a class="dropdown-item" href="index.php?lichsu_hokhau">Lịch sử biến động hộ khẩu</a></li>
             </ul>
         </div>
 
@@ -263,6 +265,12 @@ referrerpolicy="no-referrer" />
     }
     if(isset($_GET['edit_resident'])) {
         include('edit_resident.php');
+    }
+    if(isset($_GET['lichsu_nhankhau'])) {
+        include('lichsu_nhankhau.php');
+    }
+    if(isset($_GET['lichsu_hokhau'])) {
+        include('lichsu_hokhau.php');
     }
     ?>
 </div>

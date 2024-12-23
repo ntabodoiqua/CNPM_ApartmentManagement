@@ -145,9 +145,12 @@ referrerpolicy="no-referrer" />
     </button>
 </div>
       </div>
-<?php
-      if (isset($_SESSION['username'])) {
+
+      <?php
+// Kiểm tra nếu người dùng đã đăng nhập
+if (isset($_SESSION['username'])) {
 ?>
+
  <!-- fourth child -->
   <div class="row">
   <div class="col-md-10">
@@ -175,6 +178,7 @@ get_chosen_fee_type();
         </ul>
     </div>
 </div>
+
 <?php
 } else {
 ?>
@@ -190,7 +194,6 @@ get_chosen_fee_type();
 <?php
 }
 ?>
-
      </div>
 
 
