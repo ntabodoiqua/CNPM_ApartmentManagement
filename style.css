@@ -647,3 +647,6 @@
 body {
   padding-top: 95px; /* Tùy chỉnh chiều cao padding bằng chiều cao navbar */
 }
+.table-bordered .row-moved-out {
+  border: 2px solid red;
+}

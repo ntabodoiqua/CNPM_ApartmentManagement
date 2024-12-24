@@ -239,7 +239,6 @@ window.onload = function() {
             </thead>
             <tbody>
                 <form action="" method="post" enctype="multipart/form-data">
-                    <!-- Tên người dân -->
                     <tr>
                         <td>Chọn loại phí</td>
                         <td>

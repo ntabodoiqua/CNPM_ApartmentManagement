@@ -134,7 +134,8 @@ referrerpolicy="no-referrer" />
             </button>
             <ul class="dropdown-menu" aria-labelledby="feeMenu">
                 <li><a class="dropdown-item" href="index.php?view_fee_type">Xem loại phí</a></li>
-                <li><a class="dropdown-item" href="index.php?insert_fees">Thêm phí thu</a></li>
+                <li><a class="dropdown-item" href="index.php?insert_fees">Thêm phí thu cho toàn bộ căn hộ</a></li>
+                <li><a class="dropdown-item" href="index.php?insert_fee_each_ap">Thêm phí thu cho căn hộ cụ thể</a></li>
                 <li><a class="dropdown-item" href="index.php?view_fees">Xem phí thu</a></li>
                 <li><a class="dropdown-item" href="index.php?list_payments">Quản lý thu phí</a></li>
                 <li><a class="dropdown-item" href="index.php?statistic_payments">Thống kê thu phí</a></li>
@@ -180,17 +181,23 @@ referrerpolicy="no-referrer" />
         include('insert_apartments.php');
     }
     if (isset($_GET['view_apartments'])) {
-        ?>
-        <form method="GET" action="index.php" class="d-flex my-4">
-            <!-- Đảm bảo view_apartments vẫn được gửi kèm với dữ liệu tìm kiếm -->
-            <input type="hidden" name="view_apartments" value="1">
-            <input type="text" name="search_data" class="form-control me-2" placeholder="Nhập mã hộ khẩu, tên hộ khẩu, chủ hộ khẩu hoặc số phòng" required>
-            <button type="submit" name="search_submit" class="btn btn-info">Tìm kiếm</button>
-        </form>
-        <?php
-        // Thay thế 'view_people.php' bằng 'view_apartments.php' để hiển thị danh sách hộ khẩu
-        include('view_apartments.php');
+    ?>
+    <form method="GET" action="index.php" class="d-flex my-4" id="filterForm">
+        <!-- Đảm bảo view_apartments vẫn được gửi kèm với dữ liệu tìm kiếm -->
+        <input type="hidden" name="view_apartments" value="1">
+        <input type="text" name="search_data" class="form-control me-2" placeholder="Nhập mã hộ khẩu, tên hộ khẩu, chủ hộ khẩu hoặc số phòng" value="<?php echo isset($_GET['search_data']) ? htmlspecialchars($_GET['search_data']) : ''; ?>" required>
+        <div class="form-check me-2">
+            <input type="checkbox" name="include_moved_out" id="include_moved_out" class="form-check-input" value="1" <?php echo isset($_GET['include_moved_out']) ? 'checked' : ''; ?> onchange="document.getElementById('filterForm').submit();">
+            <label for="include_moved_out" class="form-check-label">Hiển thị căn hộ đã chuyển đi</label>
+        </div>
+        <button type="submit" name="search_submit" class="btn btn-info">Tìm kiếm</button>
+    </form>
+    <?php
+    // Bao gồm danh sách căn hộ
+    include('view_apartments.php');
     }
+
+    
     if (isset($_GET['view_people'])) { 
         ?>
             <form method="GET" action="index.php" class="d-flex my-4">
@@ -271,6 +278,9 @@ referrerpolicy="no-referrer" />
     }
     if(isset($_GET['lichsu_hokhau'])) {
         include('lichsu_hokhau.php');
+    }
+    if(isset($_GET['insert_fee_each_ap'])) {
+        include('insert_fee_each_ap.php');
     }
     ?>
 </div>
