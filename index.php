@@ -258,7 +258,7 @@ if (isset($_SESSION['username'])) {
         <div class="carousel-content text-center">
           <img src="./images/customer1.jpg" class="rounded-circle customer-img" alt="Customer 1">
           <h5 class="mt-3">Lionel Messi</h5>
-          <p class="text-muted">"Thứ quý giá thứ hai của tôi sau chiếc cúp World Cup chính là chiếc laptop tôi đã mua tại đây!"</p>
+          <p class="text-muted">"Giành được chiếc cúp World Cup còn khó hơn mua một căn chung cư tại đây!"</p>
         </div>
       </div>
     </div>
@@ -268,7 +268,7 @@ if (isset($_SESSION['username'])) {
         <div class="carousel-content text-center">
           <img src="./images/customer2.jpg" class="rounded-circle customer-img" alt="Customer 2">
           <h5 class="mt-3">Cristiana Ronalty</h5>
-          <p class="text-muted">"Chất lượng sản phẩm rất tốt, xem các video vấp cỏ, sút điện thoại fan nhí của tôi rất đẹp!"</p>
+          <p class="text-muted">"BlueMoon mang đến một không gian sống đầy tinh tế và thoải mái, hoàn hảo để tôi thư giãn sau những màn đập điện thoại"</p>
         </div>
       </div>
     </div>
@@ -278,7 +278,7 @@ if (isset($_SESSION['username'])) {
         <div class="carousel-content text-center">
           <img src="./images/customer3.jpg" class="rounded-circle customer-img" alt="Customer 3">
           <h5 class="mt-3">Anh Chây 97</h5>
-          <p class="text-muted">"Chỉ cần được chu cấp 5 triệu mỗi tháng, bạn đã có thể mua được một chiếc laptop sịn sò ở đây!"</p>
+          <p class="text-muted">"Chỉ cần 5 triệu mỗi tháng, bạn đã có thể mua được một căn chung cư sịn sò ở đây!"</p>
         </div>
       </div>
     </div>
@@ -288,7 +288,7 @@ if (isset($_SESSION['username'])) {
         <div class="carousel-content text-center">
           <img src="./images/sontung.jpg" class="rounded-circle customer-img" alt="Customer 3">
           <h5 class="mt-3">Sơn Tùng MTP</h5>
-          <p class="text-muted">"Các hôm mê có thắc mắc tôi mua Laptop ở đâu để làm nhạc khonggg. Chính là ở đây đóo!"</p>
+          <p class="text-muted">"Chung cư này mang phong cách hiện đại, sang trọng, đúng chuẩn "chất" sống đẳng cấp mà tôi luôn tìm kiếm."</p>
         </div>
       </div>
     </div>
@@ -298,7 +298,7 @@ if (isset($_SESSION['username'])) {
         <div class="carousel-content text-center">
           <img src="./images/elon.jpg" class="rounded-circle customer-img" alt="Customer 3">
           <h5 class="mt-3">Elon Musk</h5>
-          <p class="text-muted">"Tên lửa Starship và xe Tesla của tôi cũng không xịn bằng các sản phẩm của NTA Laptop!"</p>
+          <p class="text-muted">"Đây là nơi tôi có thể hình dung không chỉ là một ngôi nhà, mà còn là một bước tiến trong cuộc sống hiện đại."</p>
         </div>
       </div>
     </div>
@@ -307,8 +307,8 @@ if (isset($_SESSION['username'])) {
       <div class="d-flex justify-content-center align-items-center">
         <div class="carousel-content text-center">
           <img src="./images/ceonvdia.jpg" class="rounded-circle customer-img" alt="Customer 3">
-          <h5 class="mt-3">Jensen Huang (CEO NVIDIA)</h5>
-          <p class="text-muted">"NTA Laptop là sự lựa chọn số một của tôi để gửi gắm các sản phẩm của mình!"</p>
+          <h5 class="mt-3">Jensen Huang</h5>
+          <p class="text-muted">"Chung cư BlueMoon là sự lựa chọn số một của tôi để sinh sống!"</p>
         </div>
       </div>
     </div>
