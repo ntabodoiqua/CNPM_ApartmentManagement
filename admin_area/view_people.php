@@ -12,7 +12,6 @@
             <th>Quan hệ</th>
             <th>Trạng thái</th>
             <th>Chỉnh sửa</th>
-            <th>Xóa</th>
         </tr>
     </thead>
     <tbody class="bg-secondary text-light">
@@ -53,11 +52,10 @@
                     <td>{$row['resident_relation_owner']}</td>
                     <td><span class='badge ".($row['resident_status'] === 'Đang sống' ? 'bg-success' : 'bg-danger')."'>{$row['resident_status']}</span></td>
                     <td><a href='index.php?edit_resident={$row['resident_id']}' class='btn btn-sm btn-warning'><i class='fa-solid fa-pen-to-square'></i> Sửa</a></td>
-                    <td><a href='index.php?delete_resident={$row['resident_id']}' class='btn btn-sm btn-danger'><i class='fa-solid fa-trash'></i> Xóa</a></td>
                 </tr>";
             }
         } else {
-            echo "<tr><td colspan='10' class='text-center text-warning'>Không có dữ liệu!</td></tr>";
+            echo "<tr><td colspan='9' class='text-center text-warning'>Không có dữ liệu!</td></tr>";
         }
         ?>
     </tbody>

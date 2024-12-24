@@ -31,7 +31,7 @@ if(isset($_GET['edit_payment'])){
 
 if(isset($_POST['edit_payment'])){
     $payment_amount=$_POST['payment_amount'];
-    $update_query="update `payments` set amount_paid = amount_paid + $payment_amount, status='Thanh toán 1 phần'
+    $update_query="update `payments` set amount_paid = amount_paid + $payment_amount, status='Thanh toán 1 phần', payment_date=NOW()
                     where payment_id=$edit_payment";
     $result=mysqli_query($con, $update_query);
     if($amount_paid+$payment_amount==$amount_due){

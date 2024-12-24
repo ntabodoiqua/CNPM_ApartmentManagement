@@ -28,7 +28,7 @@ referrerpolicy="no-referrer" />
     <!-- navbar -->
      <div class="container-fluid p-0">
         <!-- first child -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary  navbar-fixed">
   <div class="container-fluid">
     <img src="../images/logo.png" alt="" class="logo">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,7 +58,7 @@ referrerpolicy="no-referrer" />
 </nav>
 
 <!-- second child -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
     <ul class="navbar-nav me-auto">
         <?php
         if(!isset($_SESSION['username'])){

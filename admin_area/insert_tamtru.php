@@ -8,8 +8,9 @@ if (isset($_POST['insert_tamtru'])) {
     $tamtru_lydo = trim($_POST['lydo']);
     $tamtru_thuongtru = trim($_POST['thuongtru_address']);
     $tamtru_apartment = $_POST['resident_apartment'];
-    $tamtru_image=$_FILES['tamtru_image']['name'];
-    $temp_image=$_FILES['tamtru_image']['tmp_name'];
+    $tamtru_image = $_FILES['tamtru_image']['name'];
+    $temp_image = $_FILES['tamtru_image']['tmp_name'];
+    
     // Kiểm tra tên người
     if (empty($tamtru_name)) {
         echo "<script>alert('Vui lòng nhập đủ thông tin!')</script>";
@@ -22,7 +23,7 @@ if (isset($_POST['insert_tamtru'])) {
         if ($number > 0) {
             echo "<script>alert('Người dân đã tồn tại!')</script>";
         } else {
-            move_uploaded_file($temp_image,"./people_images/$tamtru_image");
+            move_uploaded_file($temp_image, "./people_images/$tamtru_image");
             $insert_query = "INSERT INTO `residents` (resident_name, resident_phone, resident_dob, resident_email, resident_image, apartment_id, resident_status, resident_relation_owner) 
                              VALUES ('$tamtru_name', '$tamtru_cccd', '$tamtru_dob', '$tamtru_email', '$tamtru_image', $tamtru_apartment, 'Tạm trú', 'Không có')";
             $result_insert = mysqli_query($con, $insert_query);
@@ -33,6 +34,7 @@ if (isset($_POST['insert_tamtru'])) {
                 exit();
             }
         }
+        
         // Thêm thông tin vào bảng tamtru với resident_id
         $start_date = date('Y-m-d', strtotime($_POST['start_date']));
         $end_date = date('Y-m-d', strtotime($_POST['end_date']));
@@ -41,7 +43,17 @@ if (isset($_POST['insert_tamtru'])) {
                                 VALUES ('$resident_id', '$tamtru_lydo', '$tamtru_thuongtru', '$start_date', '$end_date')";
         $result_tamtru = mysqli_query($con, $insert_tamtru_query);
 
-        if ($result_tamtru) {
+        // Tính toán số người đang sống
+        $cal_num_living = "SELECT count(*) as curr_living from `residents` where apartment_id = $tamtru_apartment and (resident_status='Tạm trú' or resident_status='Đang sống')";
+        $result_cal = mysqli_query($con, $cal_num_living);
+        $row_cal = mysqli_fetch_assoc($result_cal);
+        $curr_living = $row_cal['curr_living'];
+
+        // Cập nhật số người đang sống vào bảng apartments
+        $update_apartment = "UPDATE `apartments` SET `curr_living` = $curr_living WHERE `apartment_id` = $tamtru_apartment";
+        mysqli_query($con, $update_apartment);
+
+        if ($result_tamtru && $result_cal) {
             echo "<script>alert('Thông tin tạm trú đã được thêm thành công!')</script>";
             echo "<script>window.open('index.php', '_self')</script>";
         } else {
