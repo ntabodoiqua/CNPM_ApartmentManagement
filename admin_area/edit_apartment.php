@@ -20,7 +20,7 @@ if (!$apartment) {
 }
 
 // Xử lý cập nhật thông tin chủ hộ
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_owner'])) {
     $owner_id = $_POST['owner_id']; // ID người dân được chọn làm chủ hộ
     $apartment_id = $_POST['apartment_id']; // ID căn hộ hiện tại
 
@@ -47,6 +47,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Xử lý xóa căn hộ
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_apartment'])) {
+    // Chuyển trạng thái của tất cả cư dân trong căn hộ và cập nhật ngày đi
+    $update_residents_query = "
+        UPDATE residents 
+        SET resident_status = 'Đã chuyển đi', resident_ngaydi = NOW() 
+        WHERE apartment_id = ?";
+    $stmt_residents = $con->prepare($update_residents_query);
+    $stmt_residents->bind_param("i", $apartment_id);
+
+    if ($stmt_residents->execute()) {
+        // Đánh dấu căn hộ là đã rời đi
+        $delete_apartment_query = "UPDATE apartments SET is_left = TRUE, owner_id = NULL WHERE apartment_id = ?";
+        $stmt_delete_apartment = $con->prepare($delete_apartment_query);
+        $stmt_delete_apartment->bind_param("i", $apartment_id);
+
+        if ($stmt_delete_apartment->execute()) {
+            echo "<script>alert('Căn hộ đã được xóa thành công!');</script>";
+            echo "<script>window.location.href = 'index.php?view_apartments';</script>";
+            exit;
+        } else {
+            echo "<script>alert('Đã xảy ra lỗi khi xóa căn hộ!');</script>";
+        }
+    } else {
+        echo "<script>alert('Đã xảy ra lỗi khi cập nhật trạng thái cư dân!');</script>";
+    }
+}
+
 
 // Lấy danh sách các thành viên trong căn hộ
 $members_query = "
@@ -59,7 +87,6 @@ $stmt->execute();
 $members_result = $stmt->get_result();
 
 ?>
-
 
 <div class="container mt-5">
     <div class="card shadow-sm border-0">
@@ -88,7 +115,9 @@ $members_result = $stmt->get_result();
                 </div>
 
                 <div class="form-group text-center">
-                    <button type="submit" class="btn btn-success px-4">Cập nhật</button>
+                    <button type="submit" name="update_owner" class="btn btn-success px-4">Cập nhật</button>
+                    <button type="submit" name="delete_apartment" class="btn btn-danger px-4" 
+                            onclick="return confirm('Bạn có chắc chắn muốn xóa căn hộ này không?')">Xóa căn hộ</button>
                     <a href="index.php?view_apartments" class="btn btn-secondary px-4">Hủy</a>
                 </div>
             </form>
@@ -98,6 +127,3 @@ $members_result = $stmt->get_result();
 
 <!-- Nhớ thêm liên kết FontAwesome để biểu tượng hiển thị đúng -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
-
-

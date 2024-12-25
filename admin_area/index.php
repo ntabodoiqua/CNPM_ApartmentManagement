@@ -3,7 +3,9 @@ include('../includes/connect.php');
 include('../functions/common_functions.php');
 session_start();
 
-
+if(!isset($_SESSION['username'])) {
+    echo "<script>window.open('admin_login.php','_self')</script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -197,17 +199,25 @@ referrerpolicy="no-referrer" />
     include('view_apartments.php');
     }
 
-    
     if (isset($_GET['view_people'])) { 
         ?>
-            <form method="GET" action="index.php" class="d-flex my-4">
-                <input type="hidden" name="view_people" value="1">
-                <input type="text" name="search_data" class="form-control me-2" placeholder="Nhập tên chủ hộ hoặc người dân" required>
-                <button type="submit" name="search_submit" class="btn btn-info">Tìm kiếm</button>
-            </form>
+        <form method="GET" action="index.php" class="d-flex my-4" id="filterForm">
+            <input type="hidden" name="view_people" value="1">
+            <input type="text" name="search_data" class="form-control me-2" placeholder="Nhập tên chủ hộ hoặc người dân" 
+                value="<?php echo isset($_GET['search_data']) ? htmlspecialchars($_GET['search_data']) : ''; ?>" required>
+            <div class="form-check me-2">
+                <input type="checkbox" class="form-check-input" id="include_left" name="include_left" 
+                    <?php echo isset($_GET['include_left']) ? 'checked' : ''; ?>
+                    onchange="document.getElementById('filterForm').submit();">
+                <label class="form-check-label" for="include_left">Xem cả người dân đã chuyển đi</label>
+            </div>
+            <button type="submit" name="search_submit" class="btn btn-info">Tìm kiếm</button>
+        </form>
         <?php
-            include('view_people.php'); 
-        }
+        include('view_people.php'); 
+    }
+    
+    
     if(isset($_GET['view_fee_type'])) {
         include('view_fee_type.php');
     }

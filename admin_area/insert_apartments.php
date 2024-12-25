@@ -19,7 +19,7 @@ if (isset($_POST['insert_apartments'])) {
             echo "<script>alert('Tên căn hộ/hộ khẩu đã tồn tại!')</script>";
         } else {
             // Thêm căn hộ/hộ khẩu vào database
-            $insert_query = "INSERT INTO `apartments` (apartment_name, apartment_num, apartment_area, apartment_type, apartment_ngaylap) VALUES ('$apartment_name', $apartment_num, $apartment_area, '$apartment_type', NOW())";
+            $insert_query = "INSERT INTO `apartments` (apartment_name, apartment_num, apartment_area, is_left, apartment_type, apartment_ngaylap) VALUES ('$apartment_name', $apartment_num, $apartment_area, FALSE, '$apartment_type', NOW())";
             $result = mysqli_query($con, $insert_query);
             if ($result) {
                 echo "<script>alert('Căn hộ/hộ khẩu được thêm thành công!')</script>";

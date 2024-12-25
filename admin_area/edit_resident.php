@@ -59,10 +59,25 @@ if (isset($_POST['update_resident'])) {
         $data_cal = mysqli_fetch_assoc($result_cal);
         $curr_living = $data_cal['curr_living'];
 
-        // Cập nhật số người đang sống trong bảng `apartments`
+        // Tính toán xem có ai đang tạm vắng hay không
+        $cal_num_tamvang = "
+        SELECT COUNT(*) as curr_tamvang
+        FROM `residents`
+        WHERE apartment_id = '$resident_apartment'
+        and resident_status = 'Tạm vắng'";
+        $result_tamvang = mysqli_query($con, $cal_num_tamvang);
+        $data_tamvang = mysqli_fetch_assoc($result_tamvang);
+        $curr_tamvang = $data_tamvang['curr_tamvang'];
+        if($curr_tamvang > 0){
+            $is_left = TRUE;
+        } else {
+            $is_left = FALSE;
+        }
+        // Cập nhật số người đang sống và trạng thái chuyển đi trong bảng `apartments`
         $update_apartment = "
         UPDATE `apartments` 
-        SET `curr_living` = '$curr_living' 
+        SET `curr_living` = '$curr_living',
+            `is_left` = '$is_left'
         WHERE `apartment_id` = '$resident_apartment'
         ";
         mysqli_query($con, $update_apartment);

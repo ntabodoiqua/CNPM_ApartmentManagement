@@ -26,9 +26,11 @@ if (isset($_POST['insert_resident_info'])) {
             
             if ($result) {
                 // Cập nhật status trong bảng residents thành "Tạm vắng"
-                $update_status_query = "UPDATE residents SET resident_status = 'Tạm vắng' WHERE resident_phone = '$cccd'";
+                $update_status_query = "UPDATE residents SET resident_status = 'Tạm vắng', resident_ngayden = NOW() WHERE resident_phone = '$cccd'";
                 $update_status_result = mysqli_query($con, $update_status_query);
-
+                // Cập nhật số người đang sống trong bảng apartments
+                $update_apartment_query = "UPDATE apartments SET curr_living = curr_living - 1 WHERE apartment_id = (SELECT apartment_id FROM residents WHERE resident_phone = '$cccd')";
+                $update_apartment_result = mysqli_query($con, $update_apartment_query);       
                 if ($update_status_result) {
                     echo "<script>alert('Thông tin tạm vắng được thêm thành công và trạng thái người dân đã được cập nhật!')</script>";
                     echo "<script>window.open('index.php', '_self')</script>";

@@ -20,7 +20,7 @@ if (isset($_GET['search_submit'])) {
 
     // Nếu không chọn hiển thị căn hộ đã chuyển đi, thêm điều kiện loại trừ
     if (!$include_moved_out) {
-        $search_query .= " AND (SELECT count(*) FROM residents WHERE apartment_id = a.apartment_id AND (resident_status='Tạm trú' OR resident_status='Đang sống')) > 0";
+        $search_query .= " AND a.is_left = 0";
     }
 } else {
     // Hiển thị toàn bộ thông tin nếu không có tìm kiếm
@@ -31,7 +31,7 @@ if (isset($_GET['search_submit'])) {
     LEFT JOIN residents r ON a.owner_id = r.resident_id";
 
     if (!$include_moved_out) {
-        $search_query .= " WHERE (SELECT count(*) FROM residents WHERE apartment_id = a.apartment_id AND (resident_status='Tạm trú' OR resident_status='Đang sống')) > 0";
+        $search_query .= " WHERE a.is_left = 0";
     }
 }
 
@@ -62,19 +62,9 @@ $result = mysqli_query($con, $search_query);
             // Duyệt qua từng kết quả và hiển thị
             while ($row = mysqli_fetch_assoc($result)) {
                 // Tính toán số người đang sống
-                $apartment_id = $row['apartment_id'];
-                $cal_num_living = "SELECT count(*) as curr_living from `residents` where apartment_id = $apartment_id and (resident_status='Tạm trú' or resident_status='Đang sống')";
-                $result_cal = mysqli_query($con, $cal_num_living);
-                $row_cal = mysqli_fetch_assoc($result_cal);
-                $curr_living = $row_cal['curr_living'];
+                $is_left = $row['is_left'];
                 
-                // update vào bảng apartments
-                $update_apartment = "UPDATE `apartments` 
-                     SET curr_living = $curr_living 
-                     WHERE apartment_id = $apartment_id";
-                mysqli_query($con, $update_apartment);
-                
-                $status_text = ($curr_living > 0) ? "Đang sống" : "Đã chuyển đi";
+                $status_text = ($is_left == 0) ? "Đang sống" : "Đã chuyển đi";
                 
                 // Áp dụng lớp CSS cho hàng
                 $row_class = ($status_text === "Đã chuyển đi") ? "row-moved-out" : "";
