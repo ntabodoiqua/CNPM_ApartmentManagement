@@ -20,7 +20,7 @@ if (!$include_left) {
 
 $result = mysqli_query($con, $search_query);
 ?>
-
+<a href="export_people.php" class="btn btn-success">Tải file Excel</a>
 <!-- Hiển thị kết quả -->
 <h3 class="text-center text-success my-4">Danh sách người dân</h3>
 <table class="table table-bordered table-hover table-striped mt-5">

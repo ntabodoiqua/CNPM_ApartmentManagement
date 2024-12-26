@@ -124,7 +124,10 @@ if (isset($_POST['insert_people'])) {
                     </tr>
                     <tr>
                         <td><label for="resident_phone">CCCD người dân</label></td>
-                        <td><input type="text" name="resident_phone" id="resident_phone" class="form-control" placeholder="Nhập CCCD người dân" required></td>
+                        <td>
+                            <input type="text" name="resident_phone" id="resident_phone" class="form-control" placeholder="Nhập CCCD người dân" required>
+                            <small id="cccd_error" class="form-text"></small>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="resident_email">Email người dân (không có hãy nhập không)</label></td>
@@ -136,7 +139,7 @@ if (isset($_POST['insert_people'])) {
                             <select name="resident_apartment" class="form-select" required>
                                 <option value="">Chọn hộ khẩu</option>
                                 <?php
-                                $select_query="select * from `apartments`";
+                                $select_query="select * from `apartments` where is_left=FALSE";
                                 $result_query=mysqli_query($con,$select_query);         
                                 while($row=mysqli_fetch_assoc($result_query)){
                                     $apartment_name=$row['apartment_name'];
@@ -172,5 +175,31 @@ if (isset($_POST['insert_people'])) {
             </tbody>
         </table>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('#resident_phone').on('input', function () {
+        var cccd = $(this).val();
+
+        if (cccd.length > 0) { // Chỉ kiểm tra nếu người dùng đã nhập gì đó
+            $.ajax({
+                url: 'fetch_check_trung_cccd.php', // File kiểm tra CCCD
+                method: 'POST',
+                data: { cccd: cccd },
+                success: function (response) {
+                    if (response.trim() === 'exists') {
+                        $('#cccd_error').text('CCCD này đã tồn tại trong hệ thống!').css('color', 'red');
+                    } else {
+                        $('#cccd_error').text('CCCD hợp lệ.').css('color', 'green');
+                    }
+                }
+            });
+        } else {
+            $('#cccd_error').text(''); // Xóa thông báo nếu không nhập gì
+        }
+    });
+});
+</script>
+
 </body>
 </html>

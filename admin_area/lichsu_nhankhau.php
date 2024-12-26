@@ -22,7 +22,7 @@ $result = $conn->query($sql);
     <div class="container">
         <h3 class="text-center text-success my-4">Lịch Sử Biến Động Nhân Khẩu</h3>
         <table class="table table-bordered">
-            <thead class="table-light">
+            <thead class="table-light text-center">
                 <tr>
                     <th>Tên</th>
                     <th>Căn cước công dân</th>
@@ -43,7 +43,7 @@ $result = $conn->query($sql);
                               </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='4'>No records found</td></tr>";
+                    echo "<tr><td colspan='4' class='bg-danger text-center'>Không có bản ghi nào!</td></tr>";
                 }
                 $conn->close();
                 ?>

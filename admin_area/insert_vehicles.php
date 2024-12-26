@@ -101,7 +101,7 @@ $(document).ready(function() {
         let cccd = $(this).val();
         if (cccd.length >= 3) {
             $.ajax({
-                url: 'fetch_resident.php',
+                url: 'fetch_resident_phuongtien.php',
                 type: 'POST',
                 data: { cccd: cccd },
                 success: function(data) {

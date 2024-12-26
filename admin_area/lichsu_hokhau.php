@@ -49,7 +49,7 @@ $result = $conn->query($sql);
                               </tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='4'>No records found</td></tr>";
+                    echo "<tr><td colspan='4' class='bg-danger text-center'>Không có bản ghi nào!</td></tr>";
                 }
                 $conn->close();
                 ?>

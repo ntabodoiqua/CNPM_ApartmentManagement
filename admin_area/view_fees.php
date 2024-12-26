@@ -8,6 +8,7 @@
             <th>Tiền cần đóng</th>
             <th>Lịch bắt đầu</th>
             <th>Lịch hết hạn</th>
+            <th>Xóa khoản phí</th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +31,7 @@
             
             $fee_start_date = $row_fee['fee_start_date'];
             $fee_due_date = $row_fee['fee_due_date'];
+            $fee_id = $row_fee['fee_id'];
 
             echo '<tr class="text-center">';
             echo "<td>$stt</td>";
@@ -38,6 +40,9 @@
             echo "<td>$fee_additional_amount</td>";
             echo "<td>$fee_start_date</td>";
             echo "<td>$fee_due_date</td>";
+            echo "<td><button class='btn btn-sm btn-danger delete-btn' data-id=$fee_id>
+                    <i class='fa-solid fa-trash'></i> Xóa
+                </button></td>";
             echo '</tr>';
 
             $stt++;
@@ -57,10 +62,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <h4>Bạn có chắc chắn muốn xóa hãng này?</h4>
+                <h4>Bạn có chắc chắn muốn xóa khoản phí này?</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><a href="./index.php?view_brands" class="text-decoration-none text-light">Không</a></button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><a href="./index.php?view_fees" class="text-decoration-none text-light">Không</a></button>
                 <a href="#" id="confirmDeleteLink" class="btn btn-danger">Có</a>
             </div>
         </div>
@@ -73,8 +78,8 @@
 <script>
     $(document).ready(function () {
         $('.delete-btn').on('click', function () {
-            var brandId = $(this).data('id');
-            $('#confirmDeleteLink').attr('href', 'index.php?delete_brand=' + brandId);
+            var feeId = $(this).data('id');
+            $('#confirmDeleteLink').attr('href', 'index.php?delete_fees=' + feeId);
             $('#deleteModal').modal('show');
         });
     });

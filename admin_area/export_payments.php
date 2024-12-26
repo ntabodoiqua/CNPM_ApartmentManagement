@@ -46,8 +46,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $sheet->setCellValue("C$rowCount", $row['apartment_num']);
     $sheet->setCellValue("D$rowCount", $row['fee_name']);
     $sheet->setCellValue("E$rowCount", $row['type_name']);
-    $sheet->setCellValue("F$rowCount", number_format($row['amount_due'], 0, ',', '.'));
-    $sheet->setCellValue("G$rowCount", number_format($row['amount_paid'], 0, ',', '.'));
+    $sheet->setCellValue("F$rowCount", number_format($row['amount_due'], 0, '.', ','));
+    $sheet->setCellValue("G$rowCount", number_format($row['amount_paid'], 0, '.', ','));
     $sheet->setCellValue("H$rowCount", $row['payment_date'] ?? 'N/A');
     $sheet->setCellValue("I$rowCount", $status);
     $rowCount++;

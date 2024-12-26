@@ -11,6 +11,7 @@
             <th>Loại xe</th>
             <th>Biển số xe</th>
             <th>Trạng thái chủ xe</th>
+            <th>Xóa phương tiện</th>
         </tr>
     </thead>
     <tbody>
@@ -42,6 +43,7 @@
             $resident_name = $row_vehicle['resident_name'];
             $resident_phone = $row_vehicle['resident_phone'];
             $resident_status = $row_vehicle['resident_status'];
+            $vehicle_id = $row_vehicle['vehicle_id'];
 
             echo '<tr class="text-center">';
             echo "<td>$stt</td>";
@@ -51,13 +53,18 @@
             echo "<td>$vehicle_type</td>";
             echo "<td>$vehicle_plate</td>";
             echo "<td>$resident_status</td>";
+            echo "<td>
+            <button class='btn btn-sm btn-danger delete-btn' data-id=$vehicle_id>
+                    <i class='fa-solid fa-trash'></i> Xóa
+                </button>
+            </td>";
             echo '</tr>';
 
             $stt++;
         }
     } else {
         echo '<tr>';
-        echo '<td colspan="7" class="text-center text-warning">Không có phương tiện nào được tìm thấy!</td>';
+        echo '<td colspan="8" class="text-center text-warning">Không có phương tiện nào được tìm thấy!</td>';
         echo '</tr>';
     }
     ?>
@@ -70,10 +77,10 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <h4>Bạn có chắc chắn muốn xóa hãng này?</h4>
+                <h4>Bạn có chắc chắn muốn xóa phương tiện này?</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><a href="./index.php?view_brands" class="text-decoration-none text-light">Không</a></button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><a href="./index.php?view_vehicles" class="text-decoration-none text-light">Không</a></button>
                 <a href="#" id="confirmDeleteLink" class="btn btn-danger">Có</a>
             </div>
         </div>
@@ -86,8 +93,8 @@
 <script>
     $(document).ready(function () {
         $('.delete-btn').on('click', function () {
-            var brandId = $(this).data('id');
-            $('#confirmDeleteLink').attr('href', 'index.php?delete_brand=' + brandId);
+            var vehicleId = $(this).data('id');
+            $('#confirmDeleteLink').attr('href', 'index.php?delete_vehicles=' + vehicleId);
             $('#deleteModal').modal('show');
         });
     });

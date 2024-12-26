@@ -27,6 +27,39 @@ referrerpolicy="no-referrer" />
 <!-- css file -->  
  <link rel="stylesheet" href="../style.css">
 
+ <style>
+  #productCarousel {
+    max-width: 90%; /* Giới hạn chiều rộng slider đến 90% của trang */
+    margin: 0 auto; /* Căn giữa slider */
+  }
+
+  #productCarousel .carousel-inner {
+    padding: 10px;
+  }
+
+  #productCarousel .carousel-item img {
+    width: 200px; /* Cố định kích thước của ảnh */
+    height: 200px;
+    object-fit: cover; /* Đảm bảo ảnh không bị méo */
+    border-radius: 10px; /* Bo góc ảnh */
+  }
+
+  /* Đảm bảo tiêu đề "Các sản phẩm nổi bật" nổi bật */
+  #productCarousel h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  /* Tùy chỉnh cho thiết bị nhỏ */
+  @media (max-width: 768px) {
+    #productCarousel {
+      max-width: 100%; /* Cho phép slider chiếm toàn bộ chiều rộng trên màn hình nhỏ */
+    }
+  }
+</style>
+
+
 </head>
 <body>
     <!-- navbar -->
@@ -170,10 +203,59 @@ referrerpolicy="no-referrer" />
 
     </div>
 </div>
+<!-- background carousel -->
+<div class="container my-5 p-4 bg-light rounded shadow-sm">
+<div id="highlightCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+            <img src="../images/slide1.jpeg" class="d-block w-100 rounded" alt="Mục nổi bật 1">
+            <div class="carousel-caption d-none d-md-block">
+            </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+            <img src="../images/slide2.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 2">
+            <div class="carousel-caption d-none d-md-block">
+            </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+            <img src="../images/slide3.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
+            <div class="carousel-caption d-none d-md-block">
+            </div>
+        </div>
+    </div>
+    <!-- Nút điều hướng -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#highlightCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#highlightCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 
+      <!-- Web intro third child -->
 
-
+    <!-- Phần giới thiệu -->
+    <div class="row mb-4 p-4">
+    <!-- Cột Giới thiệu về Laptop Thế Anh -->
+    <div class="col-md-6">
+        <h2 class="text-dark">Chào mừng đến với trang quản trị thu phí chung cư Blue Moon</h2>
+        <p class="lead">
+        Chung cư BlueMoon, tọa lạc tại ngã tư Văn Phú, là biểu tượng hiện đại với 30 tầng, gồm kiot, nhà ở và penhouse, được hoàn thiện năm 2023. Với cơ sở vật chất đẳng cấp và quản lý chuyên nghiệp bởi Ban quản trị cư dân, BlueMoon mang đến không gian sống tiện nghi và bền vững.
+        </p>
+    </div>
+    
+    <!-- Cột Hình ảnh -->
+    <div class="col-md-6 text-center">
+        <img src="../images/chungcu_trangchu.webp" alt="Giới thiệu Laptop Thế Anh" class="img-fluid img-intro">
+    </div>
+</div>
      <!-- fourth child -->
+</div>
 <div class="container my-3">
     <?php
     if(isset($_GET['insert_people'])) {
@@ -216,8 +298,6 @@ referrerpolicy="no-referrer" />
         <?php
         include('view_people.php'); 
     }
-    
-    
     if(isset($_GET['view_fee_type'])) {
         include('view_fee_type.php');
     }
@@ -291,6 +371,12 @@ referrerpolicy="no-referrer" />
     }
     if(isset($_GET['insert_fee_each_ap'])) {
         include('insert_fee_each_ap.php');
+    }
+    if(isset($_GET['delete_vehicles'])) {
+        include('delete_vehicles.php');
+    }
+    if(isset($_GET['delete_fees'])) {
+        include('delete_fees.php');
     }
     ?>
 </div>

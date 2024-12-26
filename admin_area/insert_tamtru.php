@@ -126,7 +126,7 @@ if (isset($_POST['insert_tamtru'])) {
                             <select name="resident_apartment" class="form-select" required>
                                 <option value="">Chọn địa chỉ (căn hộ)</option>
                                 <?php
-                                $select_query="select * from `apartments`";
+                                $select_query="select * from `apartments` where is_left=0";
                                 $result_query=mysqli_query($con,$select_query);         
                                 while($row=mysqli_fetch_assoc($result_query)){
                                     $apartment_name=$row['apartment_name'];

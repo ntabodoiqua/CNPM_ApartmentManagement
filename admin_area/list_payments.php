@@ -23,7 +23,7 @@
         $row_count=mysqli_num_rows($result);
 
         if($row_count==0){
-            echo "<tr><td colspan='9' class='bg-danger text-center'>Chưa có khoản phí nào!</td></tr>";
+            echo "<tr><td colspan='10' class='bg-danger text-center'>Chưa có khoản phí nào!</td></tr>";
         } else {
             $number = 0;
             while($row_data=mysqli_fetch_assoc($result)){
