@@ -48,17 +48,6 @@ if (isset($_POST['insert_resident_info'])) {
 }
 ?>
 
-
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm tạm vắng - Admin Dashboard</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-</head>
 <body class="bg-light">
 <div class="container mt-3">
     <h3 class="text-center text-success my-4">Khai báo tạm vắng</h3>
@@ -128,5 +117,5 @@ $(document).ready(function() {
 });
 </script>
 </body>
-</html>
+
 

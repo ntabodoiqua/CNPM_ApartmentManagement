@@ -19,6 +19,12 @@ rel="stylesheet"
 integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
 crossorigin="anonymous">
 
+<!-- Chart Js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" 
 integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" 
@@ -26,7 +32,6 @@ crossorigin="anonymous"
 referrerpolicy="no-referrer" />
 <!-- css file -->  
  <link rel="stylesheet" href="../style.css">
-
  <style>
   #productCarousel {
     max-width: 90%; /* Giới hạn chiều rộng slider đến 90% của trang */
@@ -66,19 +71,37 @@ referrerpolicy="no-referrer" />
      <div class="container-fluid p-0">
         <!-- first child -->
         <nav class="navbar navbar-expand-lg bg-info navbar-fixed">
-            <div class="container-fluid">
-                <img src="../images/logo.png" alt="" class="logo">
-                <nav class="navbar navbar-expand-lg navbar-light bg-info">
-                    <ul class="navbar-nav ">
-                        <li class="nav-item">
-                            <a href="" class="nav-link"><?php echo "<li class='nav-item'>
-          <a class='nav-link' href='#'>Welcome ".$_SESSION['username']."!</a>
-        </li>"?></a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+    <div class="container-fluid">
+        <img src="../images/logo.png" alt="" class="logo">
+        <nav class="navbar navbar-expand-lg navbar-light bg-info w-100">
+            <ul class="navbar-nav me-auto"> <!-- me-auto dùng để căn trái -->
+                <!-- Kiểm tra nếu đây là trang chủ -->
+                <li class="nav-item">
+                    <?php 
+                    if ($_SERVER['REQUEST_URI'] == "index.php" || $_SERVER['REQUEST_URI'] == "/") { 
+                        echo "<a href='#' class='nav-link'>Trang chủ</a>"; 
+                    } else { 
+                        echo "<a href='index.php' class='nav-link'>Trang chủ</a>"; 
+                    }
+                    ?>
+                </li>
+                
+                <!-- Hiển thị tên người dùng khi đã đăng nhập -->
+                <li class="nav-item">
+                    <?php
+                    if (isset($_SESSION['username'])) {
+                        echo "<a class='nav-link' href='#'>Welcome " . $_SESSION['username'] . "!</a>";
+                    } else {
+                        echo "<a class='nav-link' href='/login.php'>Login</a>";
+                    }
+                    ?>
+                </li>
+            </ul>
         </nav>
+    </div>
+</nav>
+
+
 
 
         <!-- second child -->
@@ -203,57 +226,7 @@ referrerpolicy="no-referrer" />
 
     </div>
 </div>
-<!-- background carousel -->
-<div class="container my-5 p-4 bg-light rounded shadow-sm">
-<div id="highlightCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-    <div class="carousel-inner">
-        <!-- Slide 1 -->
-        <div class="carousel-item active">
-            <img src="../images/slide1.jpeg" class="d-block w-100 rounded" alt="Mục nổi bật 1">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 2 -->
-        <div class="carousel-item">
-            <img src="../images/slide2.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 2">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-        <!-- Slide 3 -->
-        <div class="carousel-item">
-            <img src="../images/slide3.jpg" class="d-block w-100 rounded" alt="Mục nổi bật 3">
-            <div class="carousel-caption d-none d-md-block">
-            </div>
-        </div>
-    </div>
-    <!-- Nút điều hướng -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#highlightCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#highlightCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
 
-      <!-- Web intro third child -->
-
-    <!-- Phần giới thiệu -->
-    <div class="row mb-4 p-4">
-    <!-- Cột Giới thiệu về Laptop Thế Anh -->
-    <div class="col-md-6">
-        <h2 class="text-dark">Chào mừng đến với trang quản trị thu phí chung cư Blue Moon</h2>
-        <p class="lead">
-        Chung cư BlueMoon, tọa lạc tại ngã tư Văn Phú, là biểu tượng hiện đại với 30 tầng, gồm kiot, nhà ở và penhouse, được hoàn thiện năm 2023. Với cơ sở vật chất đẳng cấp và quản lý chuyên nghiệp bởi Ban quản trị cư dân, BlueMoon mang đến không gian sống tiện nghi và bền vững.
-        </p>
-    </div>
-    
-    <!-- Cột Hình ảnh -->
-    <div class="col-md-6 text-center">
-        <img src="../images/chungcu_trangchu.webp" alt="Giới thiệu Laptop Thế Anh" class="img-fluid img-intro">
-    </div>
-</div>
      <!-- fourth child -->
 </div>
 <div class="container my-3">
@@ -261,10 +234,10 @@ referrerpolicy="no-referrer" />
     if(isset($_GET['insert_people'])) {
         include('insert_people.php');
     }
-    if(isset($_GET['insert_apartments'])) {
+    else if (isset($_GET['insert_apartments'])) {
         include('insert_apartments.php');
     }
-    if (isset($_GET['view_apartments'])) {
+    else if (isset($_GET['view_apartments'])) {
     ?>
     <form method="GET" action="index.php" class="d-flex my-4" id="filterForm">
         <!-- Đảm bảo view_apartments vẫn được gửi kèm với dữ liệu tìm kiếm -->
@@ -281,7 +254,7 @@ referrerpolicy="no-referrer" />
     include('view_apartments.php');
     }
 
-    if (isset($_GET['view_people'])) { 
+    else if (isset($_GET['view_people'])) { 
         ?>
         <form method="GET" action="index.php" class="d-flex my-4" id="filterForm">
             <input type="hidden" name="view_people" value="1">
@@ -298,37 +271,37 @@ referrerpolicy="no-referrer" />
         <?php
         include('view_people.php'); 
     }
-    if(isset($_GET['view_fee_type'])) {
+    else if(isset($_GET['view_fee_type'])) {
         include('view_fee_type.php');
     }
-    if(isset($_GET['insert_fees'])) {
+    else if(isset($_GET['insert_fees'])) {
         include('insert_fees.php');
     }
-    if(isset($_GET['view_tamtru'])) {
+    else if(isset($_GET['view_tamtru'])) {
         include('view_tamtru.php');
     }
-    if(isset($_GET['view_tamvang'])) {
+    else if(isset($_GET['view_tamvang'])) {
         include('view_tamvang.php');
     }
-    if(isset($_GET['insert_tamtru'])) {
+    else if(isset($_GET['insert_tamtru'])) {
         include('insert_tamtru.php');
     }
-    if(isset($_GET['insert_tamvang'])) {
+    else if(isset($_GET['insert_tamvang'])) {
         include('insert_tamvang.php');
     }
-    if(isset($_GET['insert_vehicles'])) {
+    else if(isset($_GET['insert_vehicles'])) {
         include('insert_vehicles.php');
     }
-    if(isset($_GET['view_vehicles'])) {
+    else if(isset($_GET['view_vehicles'])) {
         include('view_vehicles.php');
     }
-    if(isset($_GET['view_fees'])) {
+    else if(isset($_GET['view_fees'])) {
         include('view_fees.php');
     }
-    if(isset($_GET['list_payments'])) {
+    else if(isset($_GET['list_payments'])) {
         include('list_payments.php');
     }
-    if (isset($_GET['statistic_payments'])) {
+    else if (isset($_GET['statistic_payments'])) {
         // Lấy các tham số search và month_filter (nếu có)
         $search = isset($_GET['search']) ? $_GET['search'] : '';
         $month_filter = isset($_GET['month_filter']) ? $_GET['month_filter'] : '';
@@ -336,47 +309,52 @@ referrerpolicy="no-referrer" />
         // Bao gồm file statistic_payments.php
         include('statistic_payments.php');
     }
-    if(isset($_GET['insert_users'])) {
+    else if(isset($_GET['insert_users'])) {
         include('insert_users.php');
     }
-    if(isset($_GET['list_users'])) {
+    else if(isset($_GET['list_users'])) {
         include('list_users.php');
     }
-    if(isset($_GET['edit_payment'])) {
+    else if(isset($_GET['edit_payment'])) {
         include('edit_payment.php');
     }
-    if(isset($_GET['log_out'])) {
+    else if(isset($_GET['log_out'])) {
         include('admin_logout.php');
     }
-    if(isset($_GET['delete_user'])) {
+    else if(isset($_GET['delete_user'])) {
         include('delete_user.php');
     }
-    if(isset($_GET['edit_password'])) {
+    else if(isset($_GET['edit_password'])) {
         include('edit_password.php');
     }
-    if(isset($_GET['edit_apartment'])) {
+    else if(isset($_GET['edit_apartment'])) {
         include('edit_apartment.php');
     }
-    if(isset($_GET['edit_fee_type'])) {
+    else if(isset($_GET['edit_fee_type'])) {
         include('edit_fee_type.php');
     }
-    if(isset($_GET['edit_resident'])) {
+    else if(isset($_GET['edit_resident'])) {
         include('edit_resident.php');
     }
-    if(isset($_GET['lichsu_nhankhau'])) {
+    else if(isset($_GET['lichsu_nhankhau'])) {
         include('lichsu_nhankhau.php');
     }
-    if(isset($_GET['lichsu_hokhau'])) {
+    else if(isset($_GET['lichsu_hokhau'])) {
         include('lichsu_hokhau.php');
     }
-    if(isset($_GET['insert_fee_each_ap'])) {
+    else if(isset($_GET['insert_fee_each_ap'])) {
         include('insert_fee_each_ap.php');
     }
-    if(isset($_GET['delete_vehicles'])) {
+    else if(isset($_GET['delete_vehicles'])) {
         include('delete_vehicles.php');
     }
-    if(isset($_GET['delete_fees'])) {
+    else if(isset($_GET['delete_fees'])) {
         include('delete_fees.php');
+    }
+    else {
+        // Hiển thị trang chủ mặc định khi không có tham số $_GET nào được thiết lập
+        
+        include('chart_payment.php');
     }
     ?>
 </div>

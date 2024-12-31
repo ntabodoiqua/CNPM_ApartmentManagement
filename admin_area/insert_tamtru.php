@@ -63,23 +63,8 @@ if (isset($_POST['insert_tamtru'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm tạm vắng - Admin Dashboard</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-          rel="stylesheet" 
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
-          crossorigin="anonymous">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" 
-          integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4p889k5T5Ju8fs4b1P5z/iB4nMfSQ==" 
-          crossorigin="anonymous" 
-          referrerpolicy="no-referrer" />
-</head>
+
+
 <body class="bg-light">
     <div class="container mt-3">
         <h3 class="text-center text-success my-4">Khai báo tạm trú</h3>
@@ -98,7 +83,10 @@ if (isset($_POST['insert_tamtru'])) {
                     </tr>
                     <tr>
                         <td><label for="CCCD">Căn cước công dân người tạm trú</label></td>
-                        <td><input type="text" name="CCCD" id="CCCD" class="form-control" placeholder="Nhập CCCD" required></td>
+                        <td>
+                            <input type="text" name="CCCD" id="CCCD" class="form-control" placeholder="Nhập CCCD" required>
+                            <small id="cccd_error" class="form-text"></small>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="dob">Ngày sinh người tạm trú</label></td>
@@ -154,6 +142,32 @@ if (isset($_POST['insert_tamtru'])) {
             </table>
         </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+$(document).ready(function () {
+    $('#CCCD').on('input', function () {
+        var cccd = $(this).val();
+
+        if (cccd.length > 0) { // Chỉ kiểm tra nếu người dùng đã nhập gì đó
+            $.ajax({
+                url: 'fetch_check_trung_cccd.php', // File kiểm tra CCCD
+                method: 'POST',
+                data: { cccd: cccd },
+                success: function (response) {
+                    if (response.trim() === 'exists') {
+                        $('#cccd_error').text('CCCD này đã tồn tại trong hệ thống!').css('color', 'red');
+                    } else {
+                        $('#cccd_error').text('CCCD hợp lệ.').css('color', 'green');
+                    }
+                }
+            });
+        } else {
+            $('#cccd_error').text(''); // Xóa thông báo nếu không nhập gì
+        }
+    });
+});
+</script>
 </body>
 
-</html>
+
