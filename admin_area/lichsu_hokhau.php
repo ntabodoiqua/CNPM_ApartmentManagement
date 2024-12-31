@@ -36,11 +36,6 @@ $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
                     // Output data of each row
                     while ($row = $result->fetch_assoc()) {
-                        if ($row["curr_living"] == 0) {
-                            $apartment_id = $row["apartment_id"];
-                            $sql2 = "UPDATE apartments SET apartment_ngayroi = NOW() WHERE apartment_id =  $apartment_id";
-                            $conn->query($sql2);
-                        }
                         echo "<tr>
                                 <td>" . htmlspecialchars($row["apartment_name"]) . "</td>
                                 <td>" . htmlspecialchars($row["apartment_num"]) . "</td>

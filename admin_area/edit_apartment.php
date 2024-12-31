@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_apartment'])) 
 
     if ($stmt_residents->execute()) {
         // Đánh dấu căn hộ là đã rời đi
-        $delete_apartment_query = "UPDATE apartments SET is_left = TRUE, curr_living = 0, owner_id = NULL WHERE apartment_id = ?";
+        $delete_apartment_query = "UPDATE apartments SET is_left = TRUE, curr_living = 0, owner_id = NULL, apartment_ngayroi = NOW() WHERE apartment_id = ?";
         $stmt_delete_apartment = $con->prepare($delete_apartment_query);
         $stmt_delete_apartment->bind_param("i", $apartment_id);
 

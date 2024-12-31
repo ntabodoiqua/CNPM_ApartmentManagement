@@ -57,6 +57,7 @@ if (isset($_POST['insert_apartments'])) {
                         <td><label for="apartment_num">Nhập số phòng căn hộ (biển số phòng)</label></td>
                         <td>
                             <input type="text" name="apartment_num" id="apartment_num" class="form-control" placeholder="Nhập số phòng" required>
+                            <small id="cccd_error" class="form-text"></small>
                         </td>
                     </tr>
                     <!-- Diện tích căn hộ -->
@@ -93,5 +94,30 @@ if (isset($_POST['insert_apartments'])) {
             </tbody>
         </table>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+$(document).ready(function () {
+    $('#apartment_num').on('input', function () {
+        var apartment_num = $(this).val();
+
+        if (apartment_num.length > 0) { // Chỉ kiểm tra nếu người dùng đã nhập gì đó
+            $.ajax({
+                url: 'fetch_check_trung_cccd.php', // File kiểm tra CCCD
+                method: 'POST',
+                data: { apartment_num: apartment_num },
+                success: function (response) {
+                    if (response.trim() === 'exists') {
+                        $('#cccd_error').text('Số phòng này đã tồn tại trong hệ thống!').css('color', 'red');
+                    } else {
+                        $('#cccd_error').text('Phòng còn trống.').css('color', 'green');
+                    }
+                }
+            });
+        } else {
+            $('#cccd_error').text(''); // Xóa thông báo nếu không nhập gì
+        }
+    });
+});
+</script>
 </body>
 

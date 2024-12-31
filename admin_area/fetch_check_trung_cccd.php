@@ -14,4 +14,18 @@ if (isset($_POST['cccd'])) {
         echo "not_exists"; // Trả về "not_exists" nếu CCCD chưa tồn tại
     }
 }
+if (isset($_POST['apartment_num'])) {
+    $apartment_num = $_POST['apartment_num'];
+
+    // Kiểm tra số phòng trong cơ sở dữ liệu
+    $check_num_query = "SELECT * FROM `apartments` WHERE apartment_num = '$apartment_num' and (is_left = FALSE)";
+    $check_num_result = mysqli_query($con, $check_num_query);
+
+    if (mysqli_num_rows($check_num_result) > 0) {
+        echo "exists"; // Trả về "exists" nếu so phong đã tồn tại
+    } else {
+        echo "not_exists"; // Trả về "not_exists" nếu so phong chưa tồn tại
+    }
+}
+
 ?>

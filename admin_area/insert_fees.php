@@ -207,23 +207,61 @@ if (isset($_POST['insert_fee'])) {
     var selectedType = feeTypeSelect.value;
 
     // Kiểm tra loại phí
-    if (selectedType == '1' || selectedType == '2' || selectedType == '5' || selectedType == '6') {
-        // Loại phí cố định -> ẩn trường và xóa thuộc tính required
-        feeAmountInput.closest('tr').style.display = 'none';
-        feeAmountInput.removeAttribute('required');
-    } else {
-        // Loại phí không cố định -> hiển thị trường và thêm thuộc tính required
+    if (selectedType === '3' || selectedType === '4') {
+        // Loại phí cần nhập số tiền -> hiển thị trường và thêm thuộc tính required
         feeAmountInput.closest('tr').style.display = '';
         feeAmountInput.setAttribute('required', 'required');
+    } else {
+        // Loại phí không cần nhập số tiền -> ẩn trường và xóa thuộc tính required
+        feeAmountInput.closest('tr').style.display = 'none';
+        feeAmountInput.removeAttribute('required');
     }
 }
 
 // Thêm sự kiện khi trang tải
-window.onload = function() {
+window.onload = function () {
     var feeTypeSelect = document.getElementsByName('type_fee')[0];
     feeTypeSelect.addEventListener('change', checkFeeType);
     checkFeeType(); // Gọi lần đầu khi trang tải
 };
+
+document.addEventListener('DOMContentLoaded', function () {
+    var feeInput = document.getElementById('fee');
+    var feeError = document.getElementById('fee-error');
+    var form = document.querySelector('form');
+
+    // Kiểm tra khi người dùng thay đổi giá trị
+    feeInput.addEventListener('input', function () {
+        validateFee();
+    });
+
+    // Kiểm tra khi gửi biểu mẫu
+    form.addEventListener('submit', function (e) {
+        var feeTypeSelect = document.getElementsByName('type_fee')[0];
+        var selectedType = feeTypeSelect.value;
+
+        // Chỉ kiểm tra phí nếu loại phí là 3 hoặc 4
+        if ((selectedType === '3' || selectedType === '4') && !validateFee()) {
+            e.preventDefault(); // Ngăn gửi biểu mẫu nếu không hợp lệ
+        }
+    });
+
+    function validateFee() {
+        var feeValue = feeInput.value;
+
+        if (feeValue === '' || !Number.isInteger(Number(feeValue)) || Number(feeValue) <= 0) {
+            feeError.style.display = 'block';
+            feeError.textContent = 'Vui lòng nhập một số nguyên dương hợp lệ.';
+            return false;
+        } else {
+            feeError.style.display = 'none';
+            feeError.textContent = '';
+            return true;
+        }
+    }
+});
+
+
 
     </script>
 </head>
@@ -267,7 +305,10 @@ window.onload = function() {
                     </tr>
                     <tr>
                         <td><label for="fee">Khoản phí (với các loại phí không cố định)</label></td>
-                        <td><input type="text" name="fee" id="fee" class="form-control" placeholder="Nhập khoản phí" required></td>
+                        <td>
+                            <input type="text" name="fee" id="fee" class="form-control" placeholder="Nhập khoản phí" required>
+                            <span id="fee-error" class="text-danger" style="display: none; font-size: 0.9em;"></span>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="start_date">Ngày bắt đầu</label></td>
